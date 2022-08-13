@@ -29,8 +29,12 @@ class Player {
         ctx.stroke();
         ctx.closePath();
 
+        let gunAngle = Math.atan((this.position.y - mousePos.y) / (this.position.x - mousePos.x));
+        let gunX = Math.cos(gunAngle) * this.radius;
+        let gunY = Math.sin(gunAngle) * this.radius;
+        console.log(gunX, gunY, gunAngle, mousePos.x, mousePos.y);
         ctx.beginPath();
-        ctx.arc(this.position.x, this.position.y, this.gunRadius, 0, 2 * Math.PI, false);
+        ctx.arc(gunX + this.position.x, gunY + this.position.y, this.gunRadius, 0, 2 * Math.PI, false);
         ctx.fillStyle = 'green';
         ctx.fill();
         ctx.lineWidth = 5;
@@ -102,17 +106,19 @@ for (let i = 0; i < 1; i++) {
 
 function main() {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    player.update();
-    player.draw();
     for (let i = 0; i < enemyList.length; i++) {
         enemyList[i].update();
         enemyList[i].draw();
     }
+    player.update();
+    player.draw();
 }
 setInterval(main, 30);
 
 
 canvas.addEventListener("click", findMousePos);
+canvas.addEventListener("mousemove", findMousePos);
+let mousePos = {};
 
 let pressedKeys = {};
 window.onkeyup = function(e) { pressedKeys[e.keyCode] = false; }
@@ -121,8 +127,8 @@ window.onkeydown = function(e) { pressedKeys[e.keyCode] = true; }
 function findMousePos(event) {
     //needed to get mouse position relative to the canvas
     var rect = canvas.getBoundingClientRect();
-
-    console.log(event.clientX - rect.left, event.clientY - rect.top);
+    mousePos = { x: event.clientX - rect.left, y: event.clientY - rect.top};
+    //console.log(event.clientX - rect.left, event.clientY - rect.top);
 
 
 }
