@@ -18,6 +18,7 @@ class Player {
         this.gunRadius = 2;
         this.drag = 0.7;
         this.maxSpeed = 12;
+        this.gunAngle = 0;
     }
     draw() {
         ctx.beginPath();
@@ -29,10 +30,14 @@ class Player {
         ctx.stroke();
         ctx.closePath();
 
-        let gunAngle = Math.atan((this.position.y - mousePos.y) / (this.position.x - mousePos.x));
-        let gunX = Math.cos(gunAngle) * this.radius;
-        let gunY = Math.sin(gunAngle) * this.radius;
-        console.log(gunX, gunY, gunAngle, mousePos.x, mousePos.y);
+        
+        this.gunAngle = Math.atan(((this.position.y - mousePos.y) / (this.position.x - mousePos.x)));
+        if (mousePos.x < this.position.x) {
+            this.gunAngle += Math.PI;
+        }
+        let gunX = Math.cos(this.gunAngle) * this.radius;
+        let gunY = Math.sin(this.gunAngle) * this.radius;
+        //console.log(gunX, gunY, this.gunAngle, mousePos.x, mousePos.y);
         ctx.beginPath();
         ctx.arc(gunX + this.position.x, gunY + this.position.y, this.gunRadius, 0, 2 * Math.PI, false);
         ctx.fillStyle = 'green';
@@ -66,6 +71,19 @@ class Player {
         this.position.y += this.velocity.y;
         //console.log("x velocity: " + this.velocity.x + ",                                         y velocity: " + this.velocity.y);
     }
+    shoot() {
+        entityList.push = new Bullet(this.gunAngle);
+    }
+}
+
+class Bullet {
+    constructor(angle) {
+        this.angle = angle;
+        this.position = {
+            x: 0,
+            y: 0
+        }
+    }
 }
 
 class Enemy {
@@ -97,18 +115,18 @@ class Enemy {
 
 let player = new Player();
 
-let enemyList = [];
+let entityList = [];
 for (let i = 0; i < 1; i++) {
     let enemy = new Enemy();
-    enemyList.push(enemy);
+    entityList.push(enemy);
 
 }
 
 function main() {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    for (let i = 0; i < enemyList.length; i++) {
-        enemyList[i].update();
-        enemyList[i].draw();
+    for (let i = 0; i < entityList.length; i++) {
+        entityList[i].update();
+        entityList[i].draw();
     }
     player.update();
     player.draw();
