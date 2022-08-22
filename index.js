@@ -19,6 +19,7 @@ class Player {
         this.drag = 0.7;
         this.maxSpeed = 12;
         this.gunAngle = 0;
+        this.bulletSpeed = 7;
     }
     draw() {
         ctx.beginPath();
@@ -30,13 +31,9 @@ class Player {
         ctx.stroke();
         ctx.closePath();
 
-        
-        this.gunAngle = Math.atan(((this.position.y - mousePos.y) / (this.position.x - mousePos.x)));
-        if (mousePos.x < this.position.x) {
-            this.gunAngle += Math.PI;
-        }
         let gunX = Math.cos(this.gunAngle) * this.radius;
         let gunY = Math.sin(this.gunAngle) * this.radius;
+        
         //console.log(gunX, gunY, this.gunAngle, mousePos.x, mousePos.y);
         ctx.beginPath();
         ctx.arc(gunX + this.position.x, gunY + this.position.y, this.gunRadius, 0, 2 * Math.PI, false);
@@ -69,20 +66,41 @@ class Player {
         this.velocity.y *= this.drag;
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
-        //console.log("x velocity: " + this.velocity.x + ",                                         y velocity: " + this.velocity.y);
-    }
-    shoot() {
-        entityList.push = new Bullet(this.gunAngle);
+
+        this.gunAngle = Math.atan(((this.position.y - mousePos.y) / (this.position.x - mousePos.x)));
+        if (mousePos.x < this.position.x) {
+            this.gunAngle += Math.PI;
+        }
+        
+        //console.log("x velocity: " + this.velocity.x + ", y velocity: " + this.velocity.y);
     }
 }
 
 class Bullet {
-    constructor(angle) {
+    constructor(angle, x, y, speed) {
         this.angle = angle;
         this.position = {
-            x: 0,
-            y: 0
+            x: x,
+            y: y
         }
+        this.xSpeed = Math.cos(angle) * speed;
+        this.ySpeed = Math.sin(angle) * speed;
+        this.radius = 2;
+    }
+    update() {
+        this.position.x += this.xSpeed;
+        this.position.y += this.ySpeed;
+
+    }
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI, false);
+        ctx.fillStyle = 'green';
+        ctx.fill();
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = '#003300';
+        ctx.stroke();
+        ctx.closePath();
     }
 }
 
@@ -115,18 +133,24 @@ class Enemy {
 
 let player = new Player();
 
-let entityList = [];
+let entityList = {};
+entityList.enemy = [];
+entityList.bullet = [];
 for (let i = 0; i < 1; i++) {
     let enemy = new Enemy();
-    entityList.push(enemy);
+    entityList.enemy.push(enemy);
 
 }
 
 function main() {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    for (let i = 0; i < entityList.length; i++) {
-        entityList[i].update();
-        entityList[i].draw();
+    for (const [key, value] of Object.entries(entityList)) {
+        console.log(key, value);
+        for (let j = 0; j < entityList[key]?.length; j++) {
+        entityList[key][j].update();
+        entityList[key][j].draw();
+        
+    }
     }
     player.update();
     player.draw();
@@ -134,7 +158,12 @@ function main() {
 setInterval(main, 30);
 
 
-canvas.addEventListener("click", findMousePos);
+canvas.addEventListener("click", function(){
+    b = new Bullet(player.gunAngle, player.position.x, player.position.y, player.bulletSpeed);
+    entityList.bullet.push(b);
+    console.log(entityList[entityList.length - 1], b);
+});
+
 canvas.addEventListener("mousemove", findMousePos);
 let mousePos = {};
 
