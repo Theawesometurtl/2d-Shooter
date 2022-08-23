@@ -3,6 +3,7 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+
 class Player {
     constructor() {
         this.position = {
@@ -71,13 +72,26 @@ class Player {
         if (mousePos.x < this.position.x) {
             this.gunAngle += Math.PI;
         }
+
+        for (let i = 0; i < entityList.enemy?.length; i++) {
+            if (entityList.enemy[i].position.x > this.position.x - this.radius &&
+                entityList.enemy[i].position.x < this.position.x + this.radius &&
+                entityList.enemy[i].position.y > this.position.y - this.radius &&
+                entityList.enemy[i].position.y < this.position.y + this.radius) {
+                    gameEnd();
+                    playing = false;
+            }
+        }
         
         //console.log("x velocity: " + this.velocity.x + ", y velocity: " + this.velocity.y);
     }
 }
 
 class Bullet {
+    static numberOfBullets = 0;
     constructor(angle, x, y, speed) {
+        Bullet.numberOfBullets++;
+        this.bulletNumber = Bullet.numberOfBullets
         this.angle = angle;
         this.position = {
             x: x,
@@ -90,7 +104,14 @@ class Bullet {
     update() {
         this.position.x += this.xSpeed;
         this.position.y += this.ySpeed;
-
+        if (this.position.x > canvas.width  || this.position.x < 0 ||
+            this.position.y > canvas.height || this.position.y < 0) {
+                for (let i = 0; i < entityList.bullet.length; i++) {
+                    if (entityList.bullet[i].bulletNumber === this.bulletNumber) {
+                        entityList.bullet.splice(i, 1); 
+                    } 
+                }
+        }
     }
     draw() {
         ctx.beginPath();
@@ -105,16 +126,20 @@ class Bullet {
 }
 
 class Enemy {
-    constructor() {
-        this.position = {x : 250, y : 250};
+    static numberOfEnemies = 0;
+
+    constructor(xpos, ypos) {
+        this.position = {x : xpos, y : ypos};
         this.speed = 3;
         this.radius = 10;
+        Enemy.numberOfEnemies ++;
+        this.enemyNumber = Enemy.numberOfEnemies; 
         
     }
     draw() {
         ctx.beginPath();
         ctx.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI, false);
-        ctx.fillStyle = 'green';
+        ctx.fillStyle = 'red';
         ctx.fill();
         ctx.lineWidth = 5;
         ctx.strokeStyle = '#003300';
@@ -127,6 +152,19 @@ class Enemy {
         let distance = Math.abs(xDistance) + Math.abs(yDistance);
         this.position.x += (xDistance / distance) * this.speed;
         this.position.y += (yDistance / distance) * this.speed;
+
+        for (let i = 0; i < entityList.bullet?.length; i++) {
+            if (entityList.bullet[i].position.x > this.position.x -this.radius &&
+                entityList.bullet[i].position.x < this.position.x + this.radius &&
+                entityList.bullet[i].position.y > this.position.y - this.radius &&
+                entityList.bullet[i].position.y < this.position.y + this.radius) {
+                    for (let i = 0; i < entityList.enemy.length; i++) {
+                        if (entityList.enemy[i].enemyNumber === this.enemyNumber) {
+                           entityList.enemy.splice(i, 1); 
+                        } 
+                    }
+            }
+        }
         
     }
 }
@@ -136,8 +174,8 @@ let player = new Player();
 let entityList = {};
 entityList.enemy = [];
 entityList.bullet = [];
-for (let i = 0; i < 1; i++) {
-    let enemy = new Enemy();
+for (let i = 0; i < 10; i++) {
+    let enemy = new Enemy(Math.random()* 500, Math.random()* 500);
     entityList.enemy.push(enemy);
 
 }
@@ -145,10 +183,15 @@ for (let i = 0; i < 1; i++) {
 function main() {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     for (const [key, value] of Object.entries(entityList)) {
-        console.log(key, value);
+        //console.log(key, value);
         for (let j = 0; j < entityList[key]?.length; j++) {
         entityList[key][j].update();
+        try {//I have no clue at all why this part of code will give an error when the enemy is destroyed but this works ig
         entityList[key][j].draw();
+        }
+        catch (e) {
+        }
+        
         
     }
     }
@@ -161,7 +204,7 @@ setInterval(main, 30);
 canvas.addEventListener("click", function(){
     b = new Bullet(player.gunAngle, player.position.x, player.position.y, player.bulletSpeed);
     entityList.bullet.push(b);
-    console.log(entityList[entityList.length - 1], b);
+    //console.log( b);
 });
 
 canvas.addEventListener("mousemove", findMousePos);
