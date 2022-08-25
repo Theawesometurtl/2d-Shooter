@@ -33,7 +33,8 @@ class Enemy {
                 entityList.bullet[i].position.y < this.position.y + this.radius) {
                     for (let i = 0; i < entityList.enemy.length; i++) {
                         if (entityList.enemy[i].enemyNumber === this.enemyNumber) {
-                           entityList.enemy.splice(i, 1); 
+                           entityList.enemy.splice(i, 1);
+                           score++; 
                         } 
                     }
             }

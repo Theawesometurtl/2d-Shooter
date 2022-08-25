@@ -2,11 +2,14 @@ const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+let entityList = {};
+let score = 0;
+let highscore = 0;
 
-start();
 
 function main() {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    
     for (const [key, value] of Object.entries(entityList)) {
         //console.log(key, value);
         for (let j = 0; j < entityList[key]?.length; j++) {
@@ -22,13 +25,10 @@ function main() {
     }
     player.update();
     player.draw();
+    document.getElementById('score').innerHTML = 'Score: ' + score;
 }
 setInterval(main, 30);
 
-
-function gameEnd() {
-
-}
 
 
 canvas.addEventListener("click", function(){

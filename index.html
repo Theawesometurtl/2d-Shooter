@@ -1,12 +1,30 @@
 <html>
     <title>name</title>
-    <canvas height="200px"  width="200px" id="canvas"></canvas>
-    <script src="Player.js"></script>
-    <script src="Enemy.js"></script>
-    <script src="Bullet.js"></script>
-    <script src="start.js"></script>
-    <script src="index.js"></script>
+    <canvas height="200px"  width="200px" id="canvas" style="display:none" z-index="-1"></canvas>
+    
+    <body>
+        <div id="start">
+            <a href="#" onclick="start()">Start Game</a>
+        </div>
+        <div id="game-over" style="display:none">
+            <h1>Game Over</h1>
+            <a href="#" onclick="start()">Start Game</a>
+        </div>
+        <div class="scores">
+            <h1 id="score" style="display: block;">Score: 0</h1>
+            <h1 id="highscore">Highscore: 0</h1>
+        </div>
+    </body>
 
+    
+    <script src="javascripttttttt/Player.js"></script>
+    <script src="javascripttttttt/Enemy.js"></script>
+    <script src="javascripttttttt/Bullet.js"></script>
+    <script src="javascripttttttt/start.js"></script>
+    <script src="javascripttttttt/gameEnd.js"></script>
+    <link rel="stylesheet" type="text/css" href="game.css"/>  <!-- stolen from david kier pong game bc Idk css-->
+
+    <script src="javascripttttttt/game.js"></script>
     
 
     
