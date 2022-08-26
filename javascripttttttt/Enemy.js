@@ -34,11 +34,38 @@ class Enemy {
                     for (let i = 0; i < entityList.enemy.length; i++) {
                         if (entityList.enemy[i].enemyNumber === this.enemyNumber) {
                            entityList.enemy.splice(i, 1);
-                           score++; 
+                           changeScore(1); 
                         } 
                     }
             }
         }
         
+    }
+    static spawnEnemy() {
+        let random1 = Math.random();
+        let random2 = Math.random();
+        let e;
+        if (random1 < 0.25) {
+            let x = parseInt(random2 * canvas.width)
+            let y = parseInt(-this.radius)
+            console.log(x, y);
+            e = new Enemy(x, y);    
+        }
+        else if (random1 < 0.5) {
+            let x = parseInt(canvas.width + this.radius)
+            let y = parseInt(random2 * canvas.height)
+            e = new Enemy(x, y);
+        }
+        else if (random1 < 0.75) {
+            let x = parseInt(random2 * canvas.widt)
+            let y = parseInt(canvas.height + this.radius)
+            e = new Enemy(x, y);
+        } else {
+            let x = parseInt(random2-this.radius)
+            let y = parseInt(random2 * canvas.height)
+            e = new Enemy(x, y);
+        }
+        entityList.enemy.push(e);
+        console.log(e, entityList.enemy )
     }
 }

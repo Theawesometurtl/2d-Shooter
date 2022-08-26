@@ -3,9 +3,22 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 let entityList = {};
+entityList.enemy = [];
+entityList.bullet = [];
 let score = 0;
 let highscore = 0;
+let spawn = 0;
+let spawnrate = 0.1;
 
+
+function changeScore(addAmount) {
+    score += addAmount;
+    if (score > highscore) {
+        highscore = score;
+    }
+    document.getElementById('score').innerHTML = 'Score: ' + score;
+    document.getElementById('highscore').innerHTML = 'Highscore: ' + highscore;
+}
 
 function main() {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
@@ -25,8 +38,13 @@ function main() {
     }
     player.update();
     player.draw();
-    document.getElementById('score').innerHTML = 'Score: ' + score;
+    spawn += spawnrate;
+    if (spawn >= 1) {
+        Enemy.spawnEnemy();
+    }
+
 }
+
 setInterval(main, 30);
 
 

@@ -7,8 +7,7 @@ function start () {
     entityList.bullet = [];
     player = new Player();
     for (let i = 0; i < 10; i++) {
-        let enemy = new Enemy(Math.random()* 500, Math.random()* 500);
-        entityList.enemy.push(enemy);
+        Enemy.spawnEnemy();
     }
     document.body.style.backgroundColor = '#ffffff';
     score = 0;
