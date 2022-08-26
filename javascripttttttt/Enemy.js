@@ -1,10 +1,11 @@
 class Enemy {
     static numberOfEnemies = 0;
+    static radius = 10;
 
     constructor(xpos, ypos) {
         this.position = {x : xpos, y : ypos};
         this.speed = 3;
-        this.radius = 10;
+        this.radius = Enemy.radius;
         Enemy.numberOfEnemies ++;
         this.enemyNumber = Enemy.numberOfEnemies; 
         
@@ -47,25 +48,23 @@ class Enemy {
         let e;
         if (random1 < 0.25) {
             let x = parseInt(random2 * canvas.width)
-            let y = parseInt(-this.radius)
-            console.log(x, y);
+            let y = parseInt(-Enemy.radius)
             e = new Enemy(x, y);    
         }
         else if (random1 < 0.5) {
-            let x = parseInt(canvas.width + this.radius)
+            let x = parseInt(canvas.width + Enemy.radius)
             let y = parseInt(random2 * canvas.height)
             e = new Enemy(x, y);
         }
         else if (random1 < 0.75) {
             let x = parseInt(random2 * canvas.widt)
-            let y = parseInt(canvas.height + this.radius)
+            let y = parseInt(canvas.height + Enemy.radius)
             e = new Enemy(x, y);
         } else {
-            let x = parseInt(random2-this.radius)
+            let x = parseInt(random2- Enemy.radius)
             let y = parseInt(random2 * canvas.height)
             e = new Enemy(x, y);
         }
         entityList.enemy.push(e);
-        console.log(e, entityList.enemy )
     }
 }
