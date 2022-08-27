@@ -15,8 +15,14 @@ class Bullet {
     update() {
         this.position.x += this.xSpeed;
         this.position.y += this.ySpeed;
-        if (this.position.x > canvas.width  || this.position.x < 0 ||
-            this.position.y > canvas.height || this.position.y < 0) {
+        let x = this.position.x
+        let y = this.position.y
+        if (cameraLock === true) {
+            x += -cameraPos.x + centerX;
+            y += -cameraPos.y + centerY;
+        }
+        if (x > canvas.width  || x < 0 ||
+            y > canvas.height || y < 0) {
                 for (let i = 0; i < entityList.bullet.length; i++) {
                     if (entityList.bullet[i].bulletNumber === this.bulletNumber) {
                         entityList.bullet.splice(i, 1); 
@@ -25,8 +31,14 @@ class Bullet {
         }
     }
     draw() {
+        let x = this.position.x
+        let y = this.position.y
+        if (cameraLock === true) {
+            x += -cameraPos.x + centerX;
+            y += -cameraPos.y + centerY;
+        }
         ctx.beginPath();
-        ctx.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI, false);
+        ctx.arc(x, y, this.radius, 0, 2 * Math.PI, false);
         ctx.fillStyle = 'green';
         ctx.fill();
         ctx.lineWidth = 5;

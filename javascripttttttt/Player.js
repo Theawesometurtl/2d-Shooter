@@ -1,8 +1,8 @@
 class Player {
     constructor() {
         this.position = {
-            x : 300,
-            y : 300
+            x : centerX,
+            y : centerY
         };
         this.velocity = {
             x : 0,
@@ -20,8 +20,8 @@ class Player {
         let x;
         let y;
         if (cameraLock === true) {
-            x = 300;
-            y = 300;
+            x = centerX;
+            y = centerY;
         } else {
             x = this.position.x;
             y = this.position.y;
@@ -76,8 +76,8 @@ class Player {
 
         if (cameraLock === true) {
            cameraPos = this.position; 
-           mouseX += cameraPos.x -300;//the 300 here is the center of the screen where the player starts at
-           mouseY += cameraPos.y -300;
+           mouseX += cameraPos.x -centerX;//the 300 here is the center of the screen where the player starts at
+           mouseY += cameraPos.y -centerY;
         }
         
         this.gunAngle = Math.atan((this.position.y - mouseY) / (this.position.x - mouseX));
@@ -97,4 +97,3 @@ class Player {
         //console.log("x velocity: " + this.velocity.x + ", y velocity: " + this.velocity.y);
     }
 }
-let player = new Player();

@@ -2,6 +2,8 @@ const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+let centerX = 300;
+let centerY = 300;
 let entityList = {enemy: [], bullet: []};
 let score = 0;
 let highscore = 0;
@@ -12,6 +14,7 @@ let game;
 let autofire = false;
 let cameraLock = true;
 let cameraPos = {x: 0, y: 0};
+let player = new Player();
 
 
 function changeScore(addAmount) {

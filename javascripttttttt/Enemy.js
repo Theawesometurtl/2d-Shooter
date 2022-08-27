@@ -12,8 +12,12 @@ class Enemy {
     }
     draw() {
         ctx.beginPath();
-        let x = this.position.x - cameraPos.x;
-        let y = this.position.y - cameraPos.y;
+        let x = this.position.x
+        let y = this.position.y
+        if (cameraLock === true) {
+            x += -cameraPos.x + centerX;
+            y += -cameraPos.y + centerY;
+        }
         ctx.arc(x, y, this.radius, 0, 2 * Math.PI, false);
         ctx.fillStyle = 'red';
         ctx.fill();
@@ -47,29 +51,33 @@ class Enemy {
     static spawnEnemy() {
         let random1 = Math.random();
         let random2 = Math.random();
-        let e;
+        let x;
+        let y;
         if (random1 < 0.25) {
-            let x = parseInt(random2 * canvas.width)
-            let y = parseInt(-Enemy.radius)
-            e = new Enemy(x + cameraPos.x, y + cameraPos.y);    
+            x = parseInt(random2 * canvas.width)
+            y = parseInt(-Enemy.radius)
+            
         }
         else if (random1 < 0.5) {
-            let x = parseInt(canvas.width + Enemy.radius)
-            let y = parseInt(random2 * canvas.height)
-            e = new Enemy(x + cameraPos.x, y + cameraPos.y);    
+            x = parseInt(canvas.width + Enemy.radius)
+            y = parseInt(random2 * canvas.height)
 
         }
         else if (random1 < 0.75) {
-            let x = parseInt(random2 * canvas.widt)
-            let y = parseInt(canvas.height + Enemy.radius)
-            e = new Enemy(x + cameraPos.x, y + cameraPos.y);    
+            x = parseInt(random2 * canvas.width)
+            y = parseInt(canvas.height + Enemy.radius)
 
         } else {
-            let x = parseInt(random2- Enemy.radius)
-            let y = parseInt(random2 * canvas.height)
-            e = new Enemy(x + cameraPos.x, y + cameraPos.y);    
+            x = parseInt(random2- Enemy.radius)
+            y = parseInt(random2 * canvas.height)
 
         }
+        if (cameraLock === true) {
+            x += (cameraPos.x - centerX);
+            y += (cameraPos.y - centerY);
+        }
+        let e = new Enemy(x, y);    
+
         entityList.enemy.push(e);
     }
 }
