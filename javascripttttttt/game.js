@@ -2,13 +2,16 @@ const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-let entityList = {};
-entityList.enemy = [];
-entityList.bullet = [];
+let entityList = {enemy: [], bullet: []};
 let score = 0;
 let highscore = 0;
 let spawn = 0;
-let spawnrate = 0.1;
+let spawnrate = 0.05;
+let spawnrateGrowth = 0.000001;
+let game;
+let autofire = false;
+let cameraLock = true;
+let cameraPos = {x: 0, y: 0};
 
 
 function changeScore(addAmount) {
@@ -22,6 +25,7 @@ function changeScore(addAmount) {
 
 function main() {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    player.update();
     
     for (const [key, value] of Object.entries(entityList)) {
         //console.log(key, value);
@@ -36,16 +40,22 @@ function main() {
         
     }
     }
-    player.update();
+    
     player.draw();
     spawn += spawnrate;
+    spawnrate += spawnrateGrowth;
     if (spawn >= 1) {
         Enemy.spawnEnemy();
+        console.log(spawnrate);
+        spawn = 0;
+    }
+    if (autofire === true) {
+        b = new Bullet(player.gunAngle, player.position.x, player.position.y, player.bulletSpeed);
+        entityList.bullet.push(b);
     }
 
 }
 
-setInterval(main, 30);
 
 
 

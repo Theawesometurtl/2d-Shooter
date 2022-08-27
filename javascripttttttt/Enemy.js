@@ -12,7 +12,9 @@ class Enemy {
     }
     draw() {
         ctx.beginPath();
-        ctx.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI, false);
+        let x = this.position.x - cameraPos.x;
+        let y = this.position.y - cameraPos.y;
+        ctx.arc(x, y, this.radius, 0, 2 * Math.PI, false);
         ctx.fillStyle = 'red';
         ctx.fill();
         ctx.lineWidth = 5;
@@ -49,21 +51,24 @@ class Enemy {
         if (random1 < 0.25) {
             let x = parseInt(random2 * canvas.width)
             let y = parseInt(-Enemy.radius)
-            e = new Enemy(x, y);    
+            e = new Enemy(x + cameraPos.x, y + cameraPos.y);    
         }
         else if (random1 < 0.5) {
             let x = parseInt(canvas.width + Enemy.radius)
             let y = parseInt(random2 * canvas.height)
-            e = new Enemy(x, y);
+            e = new Enemy(x + cameraPos.x, y + cameraPos.y);    
+
         }
         else if (random1 < 0.75) {
             let x = parseInt(random2 * canvas.widt)
             let y = parseInt(canvas.height + Enemy.radius)
-            e = new Enemy(x, y);
+            e = new Enemy(x + cameraPos.x, y + cameraPos.y);    
+
         } else {
             let x = parseInt(random2- Enemy.radius)
             let y = parseInt(random2 * canvas.height)
-            e = new Enemy(x, y);
+            e = new Enemy(x + cameraPos.x, y + cameraPos.y);    
+
         }
         entityList.enemy.push(e);
     }

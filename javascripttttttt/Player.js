@@ -17,8 +17,17 @@ class Player {
         this.bulletSpeed = 7;
     }
     draw() {
+        let x;
+        let y;
+        if (cameraLock === true) {
+            x = 300;
+            y = 300;
+        } else {
+            x = this.position.x;
+            y = this.position.y;
+        }
         ctx.beginPath();
-        ctx.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI, false);
+        ctx.arc(x, y, this.radius, 0, 2 * Math.PI, false);
         ctx.fillStyle = 'green';
         ctx.fill();
         ctx.lineWidth = 5;
@@ -31,7 +40,7 @@ class Player {
         
         //console.log(gunX, gunY, this.gunAngle, mousePos.x, mousePos.y);
         ctx.beginPath();
-        ctx.arc(gunX + this.position.x, gunY + this.position.y, this.gunRadius, 0, 2 * Math.PI, false);
+        ctx.arc(gunX + x, gunY + y, this.gunRadius, 0, 2 * Math.PI, false);
         ctx.fillStyle = 'green';
         ctx.fill();
         ctx.lineWidth = 5;
@@ -62,8 +71,17 @@ class Player {
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
 
-        this.gunAngle = Math.atan(((this.position.y - mousePos.y) / (this.position.x - mousePos.x)));
-        if (mousePos.x < this.position.x) {
+        let mouseX = mousePos.x;
+        let mouseY = mousePos.y;
+
+        if (cameraLock === true) {
+           cameraPos = this.position; 
+           mouseX += cameraPos.x -300;//the 300 here is the center of the screen where the player starts at
+           mouseY += cameraPos.y -300;
+        }
+        
+        this.gunAngle = Math.atan((this.position.y - mouseY) / (this.position.x - mouseX));
+        if (mouseX < this.position.x) {
             this.gunAngle += Math.PI;
         }
 
