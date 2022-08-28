@@ -4,7 +4,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 let centerX = 300;
 let centerY = 300;
-let entityList = {enemy: [], bullet: []};
+let entityList;
 let score = 0;
 let highscore = 0;
 let spawn = 0;
@@ -30,18 +30,20 @@ function main() {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     player.update();
     
-    for (const [key, value] of Object.entries(entityList)) {
+    for (const [key1, value1] of Object.entries(entityList)) {
+        for (const [key2, value2] of Object.entries(entityList[key1])) {
         //console.log(key, value);
-        for (let j = 0; j < entityList[key]?.length; j++) {
-        entityList[key][j].update();
-        try {//I have no clue at all why this part of code will give an error when the enemy is destroyed but this works ig
-        entityList[key][j].draw();
-        }
-        catch (e) {
-        }
+            for (let j = 0; j < entityList[key2]?.length; j++) {
+                entityList[key][j].update();
+                try {//I have no clue at all why this part of code will give an error when the enemy is destroyed but this works ig
+                entityList[key][j].draw();
+                }
+                catch (e) {
+                }
+            
         
-        
-    }
+            }
+        }
     }
     
     player.draw();
@@ -49,7 +51,6 @@ function main() {
     spawnrate += spawnrateGrowth;
     if (spawn >= 1) {
         Enemy.spawnEnemy();
-        console.log(spawnrate);
         spawn = 0;
     }
     if (autofire === true) {
@@ -64,7 +65,7 @@ function main() {
 
 canvas.addEventListener("click", function(){
     b = new Bullet(player.gunAngle, player.position.x, player.position.y, player.bulletSpeed);
-    entityList.bullet.push(b);
+    entityList.pBullet.push(b);
     //console.log( b);
 });
 

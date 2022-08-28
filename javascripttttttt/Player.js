@@ -85,14 +85,7 @@ class Player {
             this.gunAngle += Math.PI;
         }
 
-        for (let i = 0; i < entityList.enemy?.length; i++) {
-            if (entityList.enemy[i].position.x > this.position.x - this.radius &&
-                entityList.enemy[i].position.x < this.position.x + this.radius &&
-                entityList.enemy[i].position.y > this.position.y - this.radius &&
-                entityList.enemy[i].position.y < this.position.y + this.radius) {
-                    gameEnd();
-            }
-        }
+        
         
         //console.log("x velocity: " + this.velocity.x + ", y velocity: " + this.velocity.y);
     }

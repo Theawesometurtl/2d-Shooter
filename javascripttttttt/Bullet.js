@@ -1,8 +1,12 @@
 class Bullet {
     static numberOfBullets = 0;
+
     constructor(angle, x, y, speed) {
+        this.type = 'playerBullet';
+
         Bullet.numberOfBullets++;
         this.bulletNumber = Bullet.numberOfBullets
+        
         this.angle = angle;
         this.position = {
             x: x,
@@ -11,6 +15,7 @@ class Bullet {
         this.xSpeed = Math.cos(angle) * speed;
         this.ySpeed = Math.sin(angle) * speed;
         this.radius = 2;
+        
     }
     update() {
         this.position.x += this.xSpeed;
@@ -23,9 +28,9 @@ class Bullet {
         }
         if (x > canvas.width  || x < 0 ||
             y > canvas.height || y < 0) {
-                for (let i = 0; i < entityList.bullet.length; i++) {
-                    if (entityList.bullet[i].bulletNumber === this.bulletNumber) {
-                        entityList.bullet.splice(i, 1); 
+                for (let i = 0; i < entityList.bullet[this.type].length; i++) {
+                    if (entityList.bullet[this.type][i].bulletNumber === this.bulletNumber) {
+                        entityList.bullet[this.type].splice(i, 1); 
                     } 
                 }
         }
