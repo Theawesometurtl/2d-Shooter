@@ -14,7 +14,11 @@ class Player {
         this.drag = 0.7;
         this.maxSpeed = 12;
         this.gunAngle = 0;
-        this.bulletSpeed = 7;
+        this.bulletSpeed = 12;
+        this.life = 3;
+        this.spinAttackTimer = 50;
+        this.spinAttackAngle;
+        this.invulnerable = false;
     }
     draw() {
         let x;
@@ -90,10 +94,33 @@ class Player {
                 entityList.shooterBullet[i].position.x < this.position.x + this.radius &&
                 entityList.shooterBullet[i].position.y > this.position.y - this.radius &&
                 entityList.shooterBullet[i].position.y < this.position.y + this.radius) {
-                    gameEnd();
+                    entityList.shooterBullet.splice(i, 1);
+                    this.hurt();
             }
         }
-        
+        if (this.spinAttackTimer != 50) {
+            this.spinAttackTimer++;
+            this.spinAttackAngle += 0.2;
+            for (let i = 0; i < 6; i+=0.6) {
+                let b = new Bullet(this.spinAttackAngle + i, player.position.x, player.position.y, player.bulletSpeed, 'playerBullet', 'black');
+                entityList.playerBullet.push(b); 
+            }
+            
+        } else {
+            this.invulnerable = false;
+        }
         //console.log("x velocity: " + this.velocity.x + ", y velocity: " + this.velocity.y);
+    }
+    hurt() {
+        if (this.invulnerable === false) {
+            this.life-=1;
+            if (this.life === 0) {
+                gameEnd();
+            }
+            this.spinAttackTimer = 1;
+            this.spinAttackAngle = 0;
+            this.invulnerable = true;
+        }
+        
     }
 }

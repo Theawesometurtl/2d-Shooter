@@ -47,6 +47,7 @@ class Enemy {
                 entityList.playerBullet[i].position.x < this.position.x + this.radius &&
                 entityList.playerBullet[i].position.y > this.position.y - this.radius &&
                 entityList.playerBullet[i].position.y < this.position.y + this.radius) {
+                    entityList.playerBullet[i].killed = true;
                     for (let i = 0; i < entityList.enemy.length; i++) {
                         if (entityList.enemy[i].enemyNumber === this.enemyNumber) {
                            entityList.enemy.splice(i, 1);
@@ -59,7 +60,13 @@ class Enemy {
         if (Math.abs(this.position.x - player.position.x) +
             Math.abs(this.position.y - player.position.y) < 
             player.radius + this.radius) {
-            gameEnd();
+            player.hurt();
+            for (let i = 0; i < entityList.enemy.length; i++) {
+                if (entityList.enemy[i].enemyNumber === this.enemyNumber) {
+                   entityList.enemy.splice(i, 1);
+                   changeScore(1); 
+                } 
+            }
         }
         
     }

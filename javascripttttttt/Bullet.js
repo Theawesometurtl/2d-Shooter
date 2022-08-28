@@ -9,6 +9,7 @@ class Bullet {
         this.bulletNumber = Bullet.numberOfBullets
         
         this.angle = angle;
+        this.speed = speed;
         this.position = {
             x: x,
             y: y
@@ -16,7 +17,7 @@ class Bullet {
         this.xSpeed = Math.cos(angle) * speed;
         this.ySpeed = Math.sin(angle) * speed;
         this.radius = 2;
-        
+        this.killed = false;
     }
     update() {
         this.position.x += this.xSpeed;

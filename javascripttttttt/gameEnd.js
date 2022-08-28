@@ -1,6 +1,5 @@
 function gameEnd() {
     clearInterval(game);
-    entityList = {enemy: [], bullet: []};
     canvas.style = 'display: none';
     document.getElementById('game-over').style.display = 'block';
     document.getElementById('highscore').style.display = 'block';
