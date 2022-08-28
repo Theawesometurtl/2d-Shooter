@@ -6,17 +6,13 @@ function start () {
     document.getElementById('score').innerHTML = 'Score: ' + score;
     
     document.body.style.backgroundColor = '#ffffff';
-    entityList  =  {enemy: {normal: [], shooter:[]},
-                    bullet: {enemyBullet: [], playerBullet: []}};
-                    
+    entityList  =  {enemy: [], playerBullet: [], shooterBullet: []};
+
     player = new Player();
-    for (let i = 0; i < 10; i++) {
-        Enemy.spawnEnemy('shooter');
-    }
     score = 0;
     spawn = 0;
-    spawnrate = 0.05;
-    spawnrateGrowth = 0.0001
+    spawnrate = 0.03;
+    spawnrateGrowth = 0.00001
     game;
     game = setInterval(main, 30);
   };

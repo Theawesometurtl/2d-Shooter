@@ -1,8 +1,9 @@
 class Bullet {
     static numberOfBullets = 0;
 
-    constructor(angle, x, y, speed) {
-        this.type = 'playerBullet';
+    constructor(angle, x, y, speed, type, colour) {
+        this.type = type;
+        this.colour = colour;
 
         Bullet.numberOfBullets++;
         this.bulletNumber = Bullet.numberOfBullets
@@ -28,9 +29,9 @@ class Bullet {
         }
         if (x > canvas.width  || x < 0 ||
             y > canvas.height || y < 0) {
-                for (let i = 0; i < entityList.bullet[this.type].length; i++) {
-                    if (entityList.bullet[this.type][i].bulletNumber === this.bulletNumber) {
-                        entityList.bullet[this.type].splice(i, 1); 
+                for (let i = 0; i < entityList[this.type].length; i++) {
+                    if (entityList[this.type][i].bulletNumber === this.bulletNumber) {
+                        entityList[this.type].splice(i, 1); 
                     } 
                 }
         }
@@ -44,10 +45,10 @@ class Bullet {
         }
         ctx.beginPath();
         ctx.arc(x, y, this.radius, 0, 2 * Math.PI, false);
-        ctx.fillStyle = 'green';
+        ctx.fillStyle = this.colour;
         ctx.fill();
         ctx.lineWidth = 5;
-        ctx.strokeStyle = '#003300';
+        ctx.strokeStyle = this.colour;
         ctx.stroke();
         ctx.closePath();
     }

@@ -5,6 +5,7 @@ class Enemy {
     constructor(xpos, ypos) {
         this.type = 'normal';
 
+        this.colour = 'red';
         this.position = {x : xpos, y : ypos};
         this.speed = 3;
         this.radius = Enemy.radius;
@@ -21,7 +22,7 @@ class Enemy {
             y += -cameraPos.y + centerY;
         }
         ctx.arc(x, y, this.radius, 0, 2 * Math.PI, false);
-        ctx.fillStyle = 'red';
+        ctx.fillStyle = this.colour;
         ctx.fill();
         ctx.lineWidth = 5;
         ctx.strokeStyle = '#003300';
@@ -41,14 +42,14 @@ class Enemy {
         this.position.y += (yDistance / distance) * this.speed;
     }
     collisionCheck() {
-        for (let i = 0; i < entityList.bullet[playerBullet]?.length; i++) {
-            if (entityList.bullet[playerBullet][i].position.x > this.position.x -this.radius &&
-                entityList.bullet[playerBullet][i].position.x < this.position.x + this.radius &&
-                entityList.bullet[playerBullet][i].position.y > this.position.y - this.radius &&
-                entityList.bullet[playerBullet][i].position.y < this.position.y + this.radius) {
-                    for (let i = 0; i < entityList.enemy[this.type].length; i++) {
-                        if (entityList.enemy[this.type][i].enemyNumber === this.enemyNumber) {
-                           entityList.enemy[this.type].splice(i, 1);
+        for (let i = 0; i < entityList.playerBullet?.length; i++) {
+            if (entityList.playerBullet[i].position.x > this.position.x -this.radius &&
+                entityList.playerBullet[i].position.x < this.position.x + this.radius &&
+                entityList.playerBullet[i].position.y > this.position.y - this.radius &&
+                entityList.playerBullet[i].position.y < this.position.y + this.radius) {
+                    for (let i = 0; i < entityList.enemy.length; i++) {
+                        if (entityList.enemy[i].enemyNumber === this.enemyNumber) {
+                           entityList.enemy.splice(i, 1);
                            changeScore(1); 
                         } 
                     }
@@ -96,7 +97,6 @@ class Enemy {
         } else if (type === 'shooter') {
             e = new Shooter(x, y); 
         }
-          
-        entityList.enemy.shooter.push(e);
+        entityList.enemy.push(e);
     }
 }

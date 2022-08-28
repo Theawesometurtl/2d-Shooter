@@ -7,9 +7,9 @@ let centerY = 300;
 let entityList;
 let score = 0;
 let highscore = 0;
-let spawn = 0;
-let spawnrate = 0.05;
-let spawnrateGrowth = 0.000001;
+let spawn;
+let spawnrate;
+let spawnrateGrowth;
 let game;
 let autofire = false;
 let cameraLock = true;
@@ -30,32 +30,34 @@ function main() {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     player.update();
     
-    for (const [key1, value1] of Object.entries(entityList)) {
-        for (const [key2, value2] of Object.entries(entityList[key1])) {
-        //console.log(key, value);
-            for (let j = 0; j < entityList[key2]?.length; j++) {
-                entityList[key][j].update();
-                try {//I have no clue at all why this part of code will give an error when the enemy is destroyed but this works ig
-                entityList[key][j].draw();
-                }
-                catch (e) {
-                }
-            
-        
+    for (const [key, value] of Object.entries(entityList)) {
+        for (let j = 0; j < entityList[key]?.length; j++) {
+            //console.log(key, entityList[key][j]);
+            entityList[key][j].update();
+            try {//I have no clue at all why this part of code will give an error when the enemy is destroyed but this works ig
+            entityList[key][j].draw();
             }
-        }
+            catch (e) {
+            }
+        
+        
+    }
     }
     
     player.draw();
     spawn += spawnrate;
     spawnrate += spawnrateGrowth;
     if (spawn >= 1) {
-        Enemy.spawnEnemy();
+        let type = 'normal';
+        if (Math.random() > 0.75) {
+            type = 'shooter'
+        }
+        Enemy.spawnEnemy(type);
         spawn = 0;
     }
     if (autofire === true) {
-        b = new Bullet(player.gunAngle, player.position.x, player.position.y, player.bulletSpeed);
-        entityList.bullet.push(b);
+        b = new Bullet(player.gunAngle, player.position.x, player.position.y, player.bulletSpeed, 'black');
+        entityList.playerBullet.push(b);
     }
 
 }
@@ -64,8 +66,8 @@ function main() {
 
 
 canvas.addEventListener("click", function(){
-    b = new Bullet(player.gunAngle, player.position.x, player.position.y, player.bulletSpeed);
-    entityList.pBullet.push(b);
+    b = new Bullet(player.gunAngle, player.position.x, player.position.y, player.bulletSpeed, 'playerBullet', 'black');
+    entityList.playerBullet.push(b);
     //console.log( b);
 });
 
