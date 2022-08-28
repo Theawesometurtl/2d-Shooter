@@ -1,9 +1,6 @@
-const canvas = document.querySelector('canvas');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-let centerX = 300;
-let centerY = 300;
+
+let centerX;
+let centerY;
 let entityList;
 let score = 0;
 let highscore = 0;
@@ -17,14 +14,7 @@ let cameraPos = {x: 0, y: 0};
 let player = new Player();
 
 
-function changeScore(addAmount) {
-    score += addAmount;
-    if (score > highscore) {
-        highscore = score;
-    }
-    document.getElementById('score').innerHTML = 'Score: ' + score;
-    document.getElementById('highscore').innerHTML = 'Highscore: ' + highscore;
-}
+
 
 function main() {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);

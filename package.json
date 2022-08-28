@@ -1,0 +1,24 @@
+{
+  "name": "firstgamejammaybe",
+  "version": "1.0.0",
+  "description": "I'm going to try and create a simple 2d shooter and try to add the theme absorb into it somewhere idk how this will work but I can try",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Theawesometurtl/2d-Shooter.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Theawesometurtl/2d-Shooter/issues"
+  },
+  "homepage": "https://github.com/Theawesometurtl/2d-Shooter#readme",
+  "dependencies": {
+    "firebase": "^9.9.3",
+    "firebaseui": "^6.0.1"
+  }
+}
