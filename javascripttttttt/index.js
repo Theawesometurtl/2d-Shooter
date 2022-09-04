@@ -1,7 +1,4 @@
-const canvas = document.querySelector('canvas');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+
 import { initializeApp } from 'firebase/app';
 import { getDatabase, set, ref } from "firebase/database";
 import { getAuth, onAuthStateChanged } from "firebase/auth";//why did I decide to add all this?
@@ -56,11 +53,3 @@ set(ref(db, 'users/' + userId), {
   });
 
 
-function changeScore(addAmount) {
-    score += addAmount;
-    if (score > highscore) {
-        highscore = score;
-    }
-    document.getElementById('score').innerHTML = 'Score: ' + score;
-    document.getElementById('highscore').innerHTML = 'Highscore: ' + highscore;
-}

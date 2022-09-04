@@ -1,4 +1,8 @@
-
+const canvas = document.querySelector('canvas');
+canvas.style = 'display: none';
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 let centerX;
 let centerY;
 let entityList;
@@ -12,8 +16,8 @@ let autofire = false;
 let cameraLock = true;
 let cameraPos = {x: 0, y: 0};
 let player = new Player();
-
-
+let mousePos = {};
+let pressedKeys = {};
 
 
 function main() {
@@ -52,27 +56,20 @@ function main() {
 
 }
 
+function changeScore(addAmount) {
+    score += addAmount;
+    if (score > highscore) {
+        highscore = score;
+    }
+    document.getElementById('score').innerHTML = 'Score: ' + score;
+    document.getElementById('highscore').innerHTML = 'Highscore: ' + highscore;
+}
 
 
-
-canvas.addEventListener("click", function(){
-    b = new Bullet(player.gunAngle, player.position.x, player.position.y, player.bulletSpeed, 'playerBullet', 'black');
-    entityList.playerBullet.push(b);
-    //console.log( b);
-});
-
-canvas.addEventListener("mousemove", findMousePos);
-let mousePos = {};
-
-let pressedKeys = {};
-window.onkeyup = function(e) { pressedKeys[e.keyCode] = false; }
-window.onkeydown = function(e) { pressedKeys[e.keyCode] = true; }
 
 function findMousePos(event) {
     //needed to get mouse position relative to the canvas
     var rect = canvas.getBoundingClientRect();
     mousePos = { x: event.clientX - rect.left, y: event.clientY - rect.top};
     //console.log(event.clientX - rect.left, event.clientY - rect.top);
-
-
 }

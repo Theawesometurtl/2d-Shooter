@@ -57,5 +57,17 @@ body {
 
 canvas {
     position: absolute;
-    z-index: 2;
+    z-index: -1;
+}
+
+.login-input {
+    padding-top: 100px;
+    top: 50%;
+    text-align: center;
+    display: block;
+    box-sizing: border-box;
+}
+
+.login-input > * {
+    padding-top: 10px; 
 }

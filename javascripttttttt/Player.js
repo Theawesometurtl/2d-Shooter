@@ -101,7 +101,7 @@ class Player {
         if (this.spinAttackTimer != 50) {
             this.spinAttackTimer++;
             this.spinAttackAngle += 0.2;
-            for (let i = 0; i < 6; i+=0.6) {
+            for (let i = 0; i < 6; i+=0.3) {
                 let b = new Bullet(this.spinAttackAngle + i, player.position.x, player.position.y, player.bulletSpeed, 'playerBullet', 'black');
                 entityList.playerBullet.push(b); 
             }

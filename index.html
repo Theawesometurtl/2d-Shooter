@@ -14,14 +14,18 @@
             <h1 id="score" style="display: block;">Score: 0</h1>
             <h1 id="highscore">Highscore: 0</h1>
         </div>
-        <div id="login">
-            <a href="#" onclick="login()">Login</a>
+        <div id="login-screen">
+            <a href="#" onclick="loginScreen()">Login</a>
         </div>
         <form>
             <div class="login-input" style="display:none">
-                <input type="text" id="email" name="email">
-                <input type="text" id="password" name="password">
-                <input type="submit" value="Submit">
+                <label for="email">Email: </label><br/>
+                <input type="text" id="email" name="email" placeholder="Email"><br/>
+                <label for="password">Password: </label><br/>
+                <input type="text" id="password" name="password" placeholder="Password"><br/>
+                <div id="login">
+                    <a href="#" onclick="login()">Login</a>
+                </div>
             </div>
         </form>
         
