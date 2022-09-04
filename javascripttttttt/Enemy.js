@@ -1,6 +1,6 @@
 class Enemy {
     static numberOfEnemies = 0;
-    static radius = 10;
+    static radius = 12;
 
     constructor(xpos, ypos) {
         this.type = 'normal';

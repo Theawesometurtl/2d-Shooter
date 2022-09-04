@@ -3,7 +3,7 @@ function start () {
     document.getElementById('start').style.display = 'none';
     document.getElementById('game-over').style.display = 'none';
     document.getElementById('highscore').style.display = 'none';
-    document.getElementById('login').style.display = 'none';
+    document.getElementById('login-screen').style.display = 'none';
     document.getElementById('score').innerHTML = 'Score: ' + score;
     
     document.body.style.backgroundColor = '#ffffff';
