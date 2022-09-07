@@ -1,4 +1,4 @@
-class Shooter extends Enemy {
+export class Shooter extends Enemy {
     constructor(x, y) {
         super(x, y);
         this.shootDistance = 300;

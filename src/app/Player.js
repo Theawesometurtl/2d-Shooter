@@ -1,8 +1,8 @@
-class Player {
-    constructor() {
+export class Player {
+    constructor(xPos, yPos) {
         this.position = {
-            x : centerX,
-            y : centerY
+            x : xPos,
+            y : yPos
         };
         this.velocity = {
             x : 0,
@@ -79,9 +79,8 @@ class Player {
         let mouseY = mousePos.y;
 
         if (cameraLock === true) {
-           cameraPos = this.position; 
-           mouseX += cameraPos.x -centerX;//the 300 here is the center of the screen where the player starts at
-           mouseY += cameraPos.y -centerY;
+           mouseX += this.position.x -centerX;//the 300 here is the center of the screen where the player starts at
+           mouseY += this.position.y -centerY;
         }
         
         this.gunAngle = Math.atan((this.position.y - mouseY) / (this.position.x - mouseX));

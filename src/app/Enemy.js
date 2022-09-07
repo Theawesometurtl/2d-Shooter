@@ -1,4 +1,4 @@
-class Enemy {
+export class Enemy {
     static numberOfEnemies = 0;
     static radius = 12;
 
@@ -18,8 +18,8 @@ class Enemy {
         let x = this.position.x
         let y = this.position.y
         if (cameraLock === true) {
-            x += -cameraPos.x + centerX;
-            y += -cameraPos.y + centerY;
+            x += -player.position.x + centerX;
+            y += -player.position.y + centerY;
         }
         ctx.arc(x, y, this.radius, 0, 2 * Math.PI, false);
         ctx.fillStyle = this.colour;
@@ -96,8 +96,8 @@ class Enemy {
 
         }
         if (cameraLock === true) {
-            x += (cameraPos.x - centerX);
-            y += (cameraPos.y - centerY);
+            x += (player.position.x - centerX);
+            y += (player.position.y - centerY);
         }
         if (type === 'normal') {
             e = new Enemy(x, y);  

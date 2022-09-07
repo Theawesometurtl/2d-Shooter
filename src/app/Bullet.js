@@ -1,4 +1,6 @@
-class Bullet {
+import {centerX, centerY} from 'game.js';
+
+export class Bullet {
     static numberOfBullets = 0;
 
     constructor(angle, x, y, speed, type, colour) {
@@ -25,8 +27,8 @@ class Bullet {
         let x = this.position.x
         let y = this.position.y
         if (cameraLock === true) {
-            x += -cameraPos.x + centerX;
-            y += -cameraPos.y + centerY;
+            x += -player.position.x + centerX;
+            y += -player.position.y + centerY;
         }
         if (x > canvas.width  || x < 0 ||
             y > canvas.height || y < 0) {
@@ -41,8 +43,8 @@ class Bullet {
         let x = this.position.x
         let y = this.position.y
         if (cameraLock === true) {
-            x += -cameraPos.x + centerX;
-            y += -cameraPos.y + centerY;
+            x += -player.position.x + centerX;
+            y += -player.position.y + centerY;
         }
         ctx.beginPath();
         ctx.arc(x, y, this.radius, 0, 2 * Math.PI, false);

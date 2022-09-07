@@ -1,0 +1,8 @@
+export function changeScore(addAmount) {
+    score += addAmount;
+    if (score > highscore) {
+        highscore = score;
+    }
+    document.getElementById('score').innerHTML = 'Score: ' + score;
+    document.getElementById('highscore').innerHTML = 'Highscore: ' + highscore;
+}
