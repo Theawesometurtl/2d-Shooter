@@ -1,3 +1,5 @@
+import { globals, entityList} from "./game.js";
+
 export class Enemy {
     static numberOfEnemies = 0;
     static radius = 12;
@@ -17,16 +19,16 @@ export class Enemy {
         ctx.beginPath();
         let x = this.position.x
         let y = this.position.y
-        if (cameraLock === true) {
-            x += -player.position.x + centerX;
-            y += -player.position.y + centerY;
+        if (globals.cameraLock === true) {
+            x += -globals.player.position.x + centerX;
+            y += -globals.player.position.y + centerY;
         }
-        ctx.arc(x, y, this.radius, 0, 2 * Math.PI, false);
-        ctx.fillStyle = this.colour;
-        ctx.fill();
-        ctx.lineWidth = 5;
-        ctx.strokeStyle = '#003300';
-        ctx.stroke();
+        globals.ctx.arc(x, y, this.radius, 0, 2 * Math.PI, false);
+        globals.ctx.fillStyle = this.colour;
+        globals.ctx.fill();
+        globals.ctx.lineWidth = 5;
+        globals.ctx.strokeStyle = '#003300';
+        globals.ctx.stroke();
 
     }
     update() {
@@ -35,8 +37,8 @@ export class Enemy {
     }
 
     move() {
-        let xDistance = player.position.x - this.position.x;
-        let yDistance = player.position.y - this.position.y;
+        let xDistance = globals.player.position.x - this.position.x;
+        let yDistance = globals.player.position.y - this.position.y;
         let distance = Math.abs(xDistance) + Math.abs(yDistance);
         this.position.x += (xDistance / distance) * this.speed;
         this.position.y += (yDistance / distance) * this.speed;
@@ -59,8 +61,8 @@ export class Enemy {
 
         if (Math.abs(this.position.x - player.position.x) +
             Math.abs(this.position.y - player.position.y) < 
-            player.radius + this.radius) {
-            player.hurt();
+            globals.player.radius + this.radius) {
+                globals.player.hurt();
             for (let i = 0; i < entityList.enemy.length; i++) {
                 if (entityList.enemy[i].enemyNumber === this.enemyNumber) {
                    entityList.enemy.splice(i, 1);
@@ -95,9 +97,9 @@ export class Enemy {
             y = parseInt(random2 * canvas.height)
 
         }
-        if (cameraLock === true) {
-            x += (player.position.x - centerX);
-            y += (player.position.y - centerY);
+        if (globals.cameraLock === true) {
+            x += (globals.player.position.x - centerX);
+            y += (globals.player.position.y - centerY);
         }
         if (type === 'normal') {
             e = new Enemy(x, y);  

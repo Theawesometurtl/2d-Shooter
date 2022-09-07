@@ -1,4 +1,4 @@
-import {centerX, centerY} from 'game.js';
+import {globals, entityList} from './game.js';
 
 export class Bullet {
     static numberOfBullets = 0;
@@ -26,12 +26,12 @@ export class Bullet {
         this.position.y += this.ySpeed;
         let x = this.position.x
         let y = this.position.y
-        if (cameraLock === true) {
-            x += -player.position.x + centerX;
-            y += -player.position.y + centerY;
+        if (globals.cameraLock === true) {
+            x += -globals.player.position.x + centerX;
+            y += -globals.player.position.y + centerY;
         }
-        if (x > canvas.width  || x < 0 ||
-            y > canvas.height || y < 0) {
+        if (x > globals.canvas.width  || x < 0 ||
+            y > globals.canvas.height || y < 0) {
                 for (let i = 0; i < entityList[this.type].length; i++) {
                     if (entityList[this.type][i].bulletNumber === this.bulletNumber) {
                         entityList[this.type].splice(i, 1); 
@@ -42,17 +42,17 @@ export class Bullet {
     draw() {
         let x = this.position.x
         let y = this.position.y
-        if (cameraLock === true) {
-            x += -player.position.x + centerX;
-            y += -player.position.y + centerY;
+        if (globals.cameraLock === true) {
+            x += -globals.player.position.x + centerX;
+            y += -globals.player.position.y + centerY;
         }
-        ctx.beginPath();
-        ctx.arc(x, y, this.radius, 0, 2 * Math.PI, false);
-        ctx.fillStyle = this.colour;
-        ctx.fill();
-        ctx.lineWidth = 5;
-        ctx.strokeStyle = this.colour;
-        ctx.stroke();
-        ctx.closePath();
+        globals.ctx.beginPath();
+        globals.ctx.arc(x, y, this.radius, 0, 2 * Math.PI, false);
+        globals.ctx.fillStyle = this.colour;
+        globals.ctx.fill();
+        globals.ctx.lineWidth = 5;
+        globals.ctx.strokeStyle = this.colour;
+        globals.ctx.stroke();
+        globals.ctx.closePath();
     }
 }

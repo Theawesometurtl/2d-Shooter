@@ -1,9 +1,6 @@
-import { Enemy } from "../Enemy";
+import { Enemy } from "./Enemy";
 
-const canvas = document.querySelector('canvas');
-canvas.style = 'display: none';
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+
 export let globals =  {centerX: canvas.width / 2,
             centerY: canvas.height / 2,
             score: 0,
@@ -22,7 +19,7 @@ let spawnrateGrowth = 0.00001
 
 
 export function main() {
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    globals.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     globals.player.update();
     globals.player.draw();
     for (const [key, value] of Object.entries(entityList)) {

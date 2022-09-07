@@ -1,8 +1,6 @@
-import { findMousePos } from 'findMousePos';
+import { findMousePos } from './findMousePos.js';
 import { Bullet } from '../Bullet.js';
-import { globals } from '../game.js';
-import { entityList } from '../game.js';
-import { main } from '../game.js';
+import { globals, entityList, main} from '../game.js';
 
 
 export function start () {

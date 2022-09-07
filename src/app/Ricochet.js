@@ -1,3 +1,4 @@
+import { Bullet } from "./Bullet";
 export class Ricochet extends Bullet {
     constructor(angle, x, y, speed, type, colour) {
         super(angle, x, y, speed, type, colour);

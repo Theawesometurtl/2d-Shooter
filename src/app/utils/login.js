@@ -1,5 +1,6 @@
-function loginScreen() {
-    canvas.style = 'display = none';
+import { globals } from '../game';
+export function loginScreen() {
+    globals.canvas.style = 'display = none';
     document.getElementById('start').style.display = 'none';
     document.getElementById('game-over').style.display = 'none';
     document.getElementById('login-screen').style.display = 'none';
@@ -10,7 +11,7 @@ function loginScreen() {
     }
 }
 
-function login() {
+export function login() {
     let emailElement = document.getElementById("email");
     let passwordElement = document.getElementById("password");
     let email = emailElement.value;
