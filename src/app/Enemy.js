@@ -1,5 +1,4 @@
-import { globals, entityList} from "./game.js";
-import { Shooter } from "./Shooter.js"// this doesn't work because enemy needs to be initialized first
+import { globals, entityList, ctx, centerX, centerY} from "./globals.js";
 import { changeScore } from "./utils/changeScore.js";
 
 export class Enemy {
@@ -22,15 +21,15 @@ export class Enemy {
         let x = this.position.x
         let y = this.position.y
         if (globals.cameraLock === true) {
-            x += -globals.player.position.x + globals.centerX;
-            y += -globals.player.position.y + globals.centerY;
+            x += -globals.player.position.x + centerX;
+            y += -globals.player.position.y + centerY;
         }
-        globals.ctx.arc(x, y, this.radius, 0, 2 * Math.PI, false);
-        globals.ctx.fillStyle = this.colour;
-        globals.ctx.fill();
-        globals.ctx.lineWidth = 5;
-        globals.ctx.strokeStyle = '#003300';
-        globals.ctx.stroke();
+        ctx.arc(x, y, this.radius, 0, 2 * Math.PI, false);
+        ctx.fillStyle = this.colour;
+        ctx.fill();
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = '#003300';
+        ctx.stroke();
 
     }
     update() {
@@ -74,40 +73,5 @@ export class Enemy {
         }
         
     }
-    static spawnEnemy(type) {
-        let random1 = Math.random();
-        let random2 = Math.random();
-        let x;
-        let y;
-        let e;
-        if (random1 < 0.25) {
-            x = parseInt(random2 * canvas.width)
-            y = parseInt(-Enemy.radius)
-            
-        }
-        else if (random1 < 0.5) {
-            x = parseInt(canvas.width + Enemy.radius)
-            y = parseInt(random2 * canvas.height)
 
-        }
-        else if (random1 < 0.75) {
-            x = parseInt(random2 * canvas.width)
-            y = parseInt(canvas.height + Enemy.radius)
-
-        } else {
-            x = parseInt(random2- Enemy.radius)
-            y = parseInt(random2 * canvas.height)
-
-        }
-        if (globals.cameraLock === true) {
-            x += (globals.player.position.x - globals.centerX);
-            y += (globals.player.position.y - globals.centerY);
-        }
-        if (type === 'normal') {
-            e = new Enemy(x, y);  
-        } else if (type === 'shooter') {
-            e = new Shooter(x, y); 
-        }
-        entityList.enemy.push(e);
-    }
 }

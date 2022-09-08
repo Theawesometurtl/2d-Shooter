@@ -1,26 +1,15 @@
-import { Enemy } from "./Enemy";
-import { Player } from "./Player";
+import { ctx, globals } from "./globals";
+import { spawnEnemy } from "./utils/spawnEnemy";
 
-let globals =  {centerX: canvas.width / 2,
-            centerY: canvas.height / 2,
-            score: 0,
-            highscore: 0,
-            game: undefined,
-            cameraLock : true,
-            player : new Player(),
-            mousePos : {},
-            pressedKeys : {},
-            canvas : document.querySelector('canvas'),
-            ctx : canvas.getContext('2d')}
-let entityList = {};
-export {entityList, globals};
+
+
 let spawn = 0;
 let spawnrate = 0.03;
 let spawnrateGrowth = 0.00001
 
 
 export function main() {
-    globals.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     globals.player.update();
     globals.player.draw();
     for (const [key, value] of Object.entries(entityList)) {
@@ -45,7 +34,7 @@ export function main() {
         if (Math.random() > 0.75) {
             type = 'shooter'
         }
-        Enemy.spawnEnemy(type);
+        spawnEnemy(type);
         spawn = 0;
     }
 

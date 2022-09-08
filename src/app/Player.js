@@ -1,5 +1,6 @@
 import { gameEnd } from "./utils/gameEnd";
-import { globals, entityList } from "./game";
+import { globals, entityList, ctx, centerX, centerY } from "./globals.js";
+import { Bullet } from "./Bullet.js";
 export class Player {
     constructor(xPos, yPos) {
         this.position = {
@@ -26,33 +27,33 @@ export class Player {
         let x;
         let y;
         if (globals.cameraLock === true) {
-            x = globals.centerX;
-            y = globals.centerY;
+            x = centerX;
+            y = centerY;
         } else {
             x = this.position.x;
             y = this.position.y;
         }
-        globals.ctx.beginPath();
-        globals.ctx.arc(x, y, this.radius, 0, 2 * Math.PI, false);
-        globals.ctx.fillStyle = 'green';
-        globals.ctx.fill();
-        globals.ctx.lineWidth = 5;
-        globals.ctx.strokeStyle = '#003300';
-        globals.ctx.stroke();
-        globals.ctx.closePath();
+        ctx.beginPath();
+        ctx.arc(x, y, this.radius, 0, 2 * Math.PI, false);
+        ctx.fillStyle = 'green';
+        ctx.fill();
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = '#003300';
+        ctx.stroke();
+        ctx.closePath();
 
         let gunX = Math.cos(this.gunAngle) * this.radius;
         let gunY = Math.sin(this.gunAngle) * this.radius;
         
         //console.log(gunX, gunY, this.gunAngle, mousePos.x, mousePos.y);
-        globals.ctx.beginPath();
-        globals.ctx.arc(gunX + x, gunY + y, this.gunRadius, 0, 2 * Math.PI, false);
-        globals.ctx.fillStyle = 'green';
-        globals.ctx.fill();
-        globals.ctx.lineWidth = 5;
-        globals.ctx.strokeStyle = '#003300';
-        globals.ctx.stroke();
-        globals.ctx.closePath();
+        ctx.beginPath();
+        ctx.arc(gunX + x, gunY + y, this.gunRadius, 0, 2 * Math.PI, false);
+        ctx.fillStyle = 'green';
+        ctx.fill();
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = '#003300';
+        ctx.stroke();
+        ctx.closePath();
         
     }
     update() {
@@ -81,8 +82,8 @@ export class Player {
         let mouseY = globals.mousePos.y;
 
         if (globals.cameraLock === true) {
-           mouseX += this.position.x -globals.centerX;//the 300 here is the center of the screen where the player starts at
-           mouseY += this.position.y -globals.centerY;
+           mouseX += this.position.x -centerX;//the 300 here is the center of the screen where the player starts at
+           mouseY += this.position.y -centerY;
         }
         
         this.gunAngle = Math.atan((this.position.y - mouseY) / (this.position.x - mouseX));

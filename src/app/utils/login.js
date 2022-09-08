@@ -1,6 +1,6 @@
-import { globals } from '../game';
+import { globals } from '../globals.js';
 export function loginScreen() {
-    globals.canvas.style = 'display = none';
+    canvas.style = 'display = none';
     document.getElementById('start').style.display = 'none';
     document.getElementById('game-over').style.display = 'none';
     document.getElementById('login-screen').style.display = 'none';

@@ -1,11 +1,12 @@
+import { main } from '../game.js';
 import { findMousePos } from './findMousePos.js';
 import { Bullet } from '../Bullet.js';
 import { Player } from '../Player.js';
-import { globals, entityList, main} from '../game.js';
+import { globals, entityList, canvas} from '../globals.js';
 
 
 export function start () {
-    globals.canvas.style = 'display: block';
+    canvas.style = 'display: block';
     document.getElementById('start').style.display = 'none';
     document.getElementById('game-over').style.display = 'none';
     document.getElementById('highscore').style.display = 'none';
@@ -23,12 +24,12 @@ export function start () {
 
     //event listeners
     canvas.addEventListener("click", function(){
-        let b = new Bullet(player.gunAngle, player.position.x, player.position.y, player.bulletSpeed, 'playerBullet', 'black');
-        globals.entityList.playerBullet.push(b);
+        let b = new Bullet(globals.player.gunAngle, globals.player.position.x, globals.player.position.y, globals.player.bulletSpeed, 'playerBullet', 'black');
+        entityList.playerBullet.push(b);
         //console.log( b);
     });
     
-    globals.canvas.addEventListener("mousemove", findMousePos);
+    canvas.addEventListener("mousemove", findMousePos);
     
     
     

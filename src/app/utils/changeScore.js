@@ -1,4 +1,4 @@
-import { globals } from "../game";
+import { globals } from "../globals.js";
 export function changeScore(addAmount) {
     globals.score += addAmount;
     if (score > highscore) {

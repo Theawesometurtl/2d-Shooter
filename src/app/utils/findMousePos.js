@@ -1,4 +1,4 @@
-import { globals } from "../game";
+import { globals } from "../globals.js";
 export function findMousePos(event) {
     //needed to get mouse position relative to the canvas
     var rect = canvas.getBoundingClientRect();

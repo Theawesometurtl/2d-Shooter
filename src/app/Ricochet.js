@@ -1,4 +1,6 @@
 import { Bullet } from "./Bullet";
+import { entityList } from "./globals";
+
 export class Ricochet extends Bullet {
     constructor(angle, x, y, speed, type, colour) {
         super(angle, x, y, speed, type, colour);

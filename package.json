@@ -4,7 +4,7 @@
   "description": "I'm going to try and create a simple 2d shooter and try to add the theme absorb into it somewhere idk how this will work but I can try",
   "main": "index.js",
   "scripts": {
-    "start": "webpack  --config webpack.config.js"
+    "start": "webpack serve --config webpack.dev.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,9 @@
     "firebaseui": "^6.0.1"
   },
   "devDependencies": {
+    "html-webpack-plugin": "^5.5.0",
     "webpack": "^5.74.0",
-    "webpack-cli": "^4.10.0"
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.0"
   }
 }
