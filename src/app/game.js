@@ -1,4 +1,4 @@
-import { ctx, globals } from "./globals";
+import { ctx, globals, entityList } from "./globals";
 import { spawnEnemy } from "./utils/spawnEnemy";
 
 

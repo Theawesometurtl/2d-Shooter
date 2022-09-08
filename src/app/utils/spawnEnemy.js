@@ -1,4 +1,4 @@
-import { globals, entityList, canvas } from "../globals.js";
+import { globals, entityList, canvas, centerX, centerY } from "../globals.js";
 import { Enemy } from "../Enemy";
 import { Shooter } from "../Shooter";
 
