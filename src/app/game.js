@@ -1,7 +1,7 @@
 import { Enemy } from "./Enemy";
+import { Player } from "./Player";
 
-
-export let globals =  {centerX: canvas.width / 2,
+let globals =  {centerX: canvas.width / 2,
             centerY: canvas.height / 2,
             score: 0,
             highscore: 0,
@@ -12,7 +12,8 @@ export let globals =  {centerX: canvas.width / 2,
             pressedKeys : {},
             canvas : document.querySelector('canvas'),
             ctx : canvas.getContext('2d')}
-export let entityList = {};
+let entityList = {};
+export {entityList, globals};
 let spawn = 0;
 let spawnrate = 0.03;
 let spawnrateGrowth = 0.00001

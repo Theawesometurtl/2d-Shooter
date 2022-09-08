@@ -1,4 +1,5 @@
 import { globals } from "./game.js";
+import { Enemy } from "./Enemy.js";
 export class Shooter extends Enemy {
     constructor(x, y) {
         super(x, y);

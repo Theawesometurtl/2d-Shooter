@@ -1,4 +1,6 @@
 import { globals, entityList} from "./game.js";
+import { Shooter } from "./Shooter.js"// this doesn't work because enemy needs to be initialized first
+import { changeScore } from "./utils/changeScore.js";
 
 export class Enemy {
     static numberOfEnemies = 0;
@@ -20,8 +22,8 @@ export class Enemy {
         let x = this.position.x
         let y = this.position.y
         if (globals.cameraLock === true) {
-            x += -globals.player.position.x + centerX;
-            y += -globals.player.position.y + centerY;
+            x += -globals.player.position.x + globals.centerX;
+            y += -globals.player.position.y + globals.centerY;
         }
         globals.ctx.arc(x, y, this.radius, 0, 2 * Math.PI, false);
         globals.ctx.fillStyle = this.colour;
@@ -59,8 +61,8 @@ export class Enemy {
             }
         }
 
-        if (Math.abs(this.position.x - player.position.x) +
-            Math.abs(this.position.y - player.position.y) < 
+        if (Math.abs(this.position.x - globals.player.position.x) +
+            Math.abs(this.position.y - globals.player.position.y) < 
             globals.player.radius + this.radius) {
                 globals.player.hurt();
             for (let i = 0; i < entityList.enemy.length; i++) {
@@ -98,8 +100,8 @@ export class Enemy {
 
         }
         if (globals.cameraLock === true) {
-            x += (globals.player.position.x - centerX);
-            y += (globals.player.position.y - centerY);
+            x += (globals.player.position.x - globals.centerX);
+            y += (globals.player.position.y - globals.centerY);
         }
         if (type === 'normal') {
             e = new Enemy(x, y);  

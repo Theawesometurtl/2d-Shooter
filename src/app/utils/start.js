@@ -1,5 +1,6 @@
 import { findMousePos } from './findMousePos.js';
 import { Bullet } from '../Bullet.js';
+import { Player } from '../Player.js';
 import { globals, entityList, main} from '../game.js';
 
 
@@ -12,8 +13,9 @@ export function start () {
     document.getElementById('score').innerHTML = 'Score: ' + globals.score;
     
     document.body.style.backgroundColor = '#ffffff';
-    entityList  =  {enemy: [], playerBullet: [], shooterBullet: []};
-
+    entityList.enemy = [];
+    entityList.playerBullet = [];
+    entityList.shooterBullet = [];
     
     globals.player = new Player(globals.centerX, globals.centerY);
     globals.score = 0;
@@ -30,7 +32,7 @@ export function start () {
     
     
     
-    window.onkeyup = function(e) { pressedKeys[e.keyCode] = false; }
-    window.onkeydown = function(e) { pressedKeys[e.keyCode] = true; }
+    window.onkeyup = function(e) { globals.pressedKeys[e.keyCode] = false; }
+    window.onkeydown = function(e) { globals.pressedKeys[e.keyCode] = true; }
     
   };

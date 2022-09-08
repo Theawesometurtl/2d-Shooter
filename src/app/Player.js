@@ -1,4 +1,5 @@
 import { gameEnd } from "./utils/gameEnd";
+import { globals, entityList } from "./game";
 export class Player {
     constructor(xPos, yPos) {
         this.position = {
@@ -56,16 +57,16 @@ export class Player {
     }
     update() {
         if (Math.abs(this.velocity.x) + Math.abs(this.velocity.y) < this.maxSpeed) {
-            if (pressedKeys[87]) {//w
+            if (globals.pressedKeys[87]) {//w
             this.velocity.y += -this.speed;
         }
-        if (pressedKeys[65]) {//a
+        if (globals.pressedKeys[65]) {//a
             this.velocity.x += -this.speed;
         }
-        if (pressedKeys[83]) {//s
+        if (globals.pressedKeys[83]) {//s
             this.velocity.y += this.speed;
         }
-        if (pressedKeys[68]) {//d
+        if (globals.pressedKeys[68]) {//d
             this.velocity.x += this.speed;
         }
         }
