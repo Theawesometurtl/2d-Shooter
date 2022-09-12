@@ -1,6 +1,7 @@
 import { start } from './app/utils/start.js';
 import { gameEnd } from './app/utils/gameEnd.js';
 import { canvas } from './app/globals.js';
+import './game.css';
 
 
 canvas.width = window.innerWidth;
