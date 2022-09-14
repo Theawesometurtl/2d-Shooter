@@ -1,4 +1,4 @@
-import { ctx, globals, entityList } from "./globals";
+import { ctx, globals, entityList, recenter } from "./globals";
 import { spawnEnemy } from "./utils/spawnEnemy";
 
 
@@ -30,6 +30,7 @@ export function main() {
     spawn += spawnrate;
     spawnrate += spawnrateGrowth;
     if (spawn >= 1) {
+        recenter();
         let type = 'normal';
         if (Math.random() > 0.75) {
             type = 'shooter'

@@ -10,7 +10,7 @@ export class Enemy {
 
         this.colour = 'red';
         this.position = {x : xpos, y : ypos};
-        this.speed = 3;
+        this.speed = 4;
         this.radius = Enemy.radius;
         Enemy.numberOfEnemies ++;
         this.enemyNumber = Enemy.numberOfEnemies; 

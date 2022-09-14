@@ -1,4 +1,4 @@
-import { globals } from '../globals.js';
+import { globals, canvas } from '../globals.js';
 export function loginScreen() {
     canvas.style = 'display = none';
     document.getElementById('start').style.display = 'none';

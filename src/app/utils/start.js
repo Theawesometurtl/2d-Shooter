@@ -2,10 +2,11 @@ import { main } from '../game.js';
 import { findMousePos } from './findMousePos.js';
 import { Bullet } from '../Bullet.js';
 import { Player } from '../Player.js';
-import { globals, entityList, canvas} from '../globals.js';
+import { globals, entityList, canvas, centerX, centerY, recenter } from '../globals.js';
 
 
 export function start () {
+    recenter();
     canvas.style = 'display: block';
     document.getElementById('start').style.display = 'none';
     document.getElementById('game-over').style.display = 'none';
@@ -18,7 +19,7 @@ export function start () {
     entityList.playerBullet = [];
     entityList.shooterBullet = [];
     
-    globals.player = new Player(globals.centerX, globals.centerY);
+    globals.player = new Player(centerX, centerY);
     globals.score = 0;
     globals.game = setInterval(main, 30);
 

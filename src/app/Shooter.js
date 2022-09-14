@@ -10,7 +10,7 @@ export class Shooter extends Enemy {
         this.reloadSpeed = 0.01;
         this.reload = 0;
         this.colour = 'purple';
-        this.bulletSpeed = 4;
+        this.bulletSpeed = 6;
     }
     update() {
         if (Math.abs(globals.player.position.x - this.position.x) +
