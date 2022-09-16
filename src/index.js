@@ -8,6 +8,6 @@ import './game.css';
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 //event listeners for the buttons
-let startbtn = document.getElementById("start").addEventListener("click", function() {start()});
-let gameEndbtn = document.getElementById("game-over").addEventListener("click", function() {gameEnd()});
-let loginbtn = document.getElementById("login").addEventListener("click", function() {loginScreen()});
+document.getElementById("start").addEventListener("click", function() {start()});
+document.getElementById("game-over").addEventListener("click", function() {gameEnd()});
+document.getElementById("login-screen").addEventListener("click", function() {loginScreen()});
