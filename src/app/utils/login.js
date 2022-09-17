@@ -3,6 +3,8 @@ import { initializeApp } from 'firebase/app';
 import { getDatabase, set, ref } from "firebase/database";
 import { getAuth, onAuthStateChanged } from "firebase/auth";//why did I decide to add all this?
 import { getAnalytics } from "firebase/analytics";
+import { createUser, loginUser } from './createUser.js';
+import { toMenu } from '../toMenu.js';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAAkPI-g8MRhzDjupHlZ-NOvRLDV4j8vxk",
@@ -17,14 +19,17 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const auth = getAuth();
-const db = getDatabase();
+export const auth = getAuth(app);
+const db = getDatabase(app);
 
 onAuthStateChanged(auth, (user) => {
+  console.log('I say hello first!')
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/firebase.User
-    const uid = user.uid;
+    globals.uid = user.uid;
+    toMenu();
+    console.log('hi')
     // ...
   } else {
     // User is signed out
@@ -33,24 +38,22 @@ onAuthStateChanged(auth, (user) => {
 });
 
 
-
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-
-
-// Initialize Firebase
-
-
-// Initialize Realtime Database and get a reference to the service
-
 export function setHighscore(highscore) {
-  set(ref(db, 'highscore'), {
-    alex: highscore
-  });
+  if (globals.uid !== undefined) {
+    set(ref(db, globals.uid), {
+        'highscore': highscore
+      });
+  }
 }
+
+export function setName(name) {
+  if (globals.uid !== undefined) {
+    set(ref(db, globals.uid), {
+        'name': name
+      });
+  }
+}
+
 export function loginScreen() {
     canvas.style = 'display = none';
     document.getElementById('start').style.display = 'none';
@@ -63,11 +66,31 @@ export function loginScreen() {
     }
 }
 
+export function signUp() {
+  let nameElement = document.getElementById("name");
+  let emailElement = document.getElementById("email");
+  let passwordElement = document.getElementById("password");
+  let name = nameElement.value;
+  let email = emailElement.value;
+  let password = passwordElement.value;
+  
+  emailElement.value = '';
+  passwordElement.value = '';
+  createUser(email, password);
+  setName(name);
+}
+
 export function login() {
+    let nameElement = document.getElementById("name");
     let emailElement = document.getElementById("email");
     let passwordElement = document.getElementById("password");
+    let name = nameElement.value;
     let email = emailElement.value;
     let password = passwordElement.value;
+    
     emailElement.value = '';
     passwordElement.value = '';
+    loginUser(email, password);
+    setName(name);
+
 }

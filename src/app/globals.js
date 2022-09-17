@@ -1,4 +1,4 @@
-
+import { initializeApp } from 'firebase/app';
 let globals = {
     score : 0,
     highscore : 0,
@@ -6,7 +6,8 @@ let globals = {
     cameraLock : true,
     mousePos : {},
     pressedKeys : {},
-    player : undefined
+    player : undefined,
+    uid : undefined
 };
 
 let canvas = document.querySelector('canvas');

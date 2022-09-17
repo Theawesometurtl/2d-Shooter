@@ -1,6 +1,5 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
-
-const auth = getAuth();
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
+import { auth } from "./login";
 
 export function createUser(email, password) {
     createUserWithEmailAndPassword(auth, email, password)
@@ -16,7 +15,7 @@ export function createUser(email, password) {
     });
 }
 
-export function signIn(email, password) {
+export function loginUser(email, password) {
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         // Signed in 
