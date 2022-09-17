@@ -1,5 +1,5 @@
 import { globals } from "../globals.js";
-import { setHighscore } from "./login.js";
+import { setUserInfo } from "./login.js";
 export function gameEnd() {
     clearInterval(globals.game);
     canvas.style = 'display: none';
@@ -10,6 +10,6 @@ export function gameEnd() {
     if (globals.score > globals.highscore) {
         globals.highscore = globals.score;
         document.getElementById('highscore').innerText = 'HighScore: ' + globals.highscore;
-        setHighscore(globals.highscore);
+        setUserInfo('highscore', globals.highscore);
     }
 }

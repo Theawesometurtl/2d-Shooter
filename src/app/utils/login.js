@@ -23,13 +23,15 @@ export const auth = getAuth(app);
 const db = getDatabase(app);
 
 onAuthStateChanged(auth, (user) => {
-  console.log('I say hello first!')
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/firebase.User
     globals.uid = user.uid;
     toMenu();
-    console.log('hi')
+    let name = ref(db, 'users/' + globals.uid + 'name');
+    let nameElement = document.getElementById('name');
+    nameElement.style.display = 'block';
+    nameElement.innerHTML = name;
     // ...
   } else {
     // User is signed out
@@ -38,21 +40,16 @@ onAuthStateChanged(auth, (user) => {
 });
 
 
-export function setHighscore(highscore) {
+export function setUserInfo(key, value) {
   if (globals.uid !== undefined) {
-    set(ref(db, globals.uid), {
-        'highscore': highscore
+    console.log('hi')
+    set(ref(db, 'users/' + globals.uid), {
+        key: value
       });
   }
 }
 
-export function setName(name) {
-  if (globals.uid !== undefined) {
-    set(ref(db, globals.uid), {
-        'name': name
-      });
-  }
-}
+
 
 export function loginScreen() {
     canvas.style = 'display = none';
@@ -77,7 +74,7 @@ export function signUp() {
   emailElement.value = '';
   passwordElement.value = '';
   createUser(email, password);
-  setName(name);
+  setUserInfo('name', name);
 }
 
 export function login() {
@@ -91,6 +88,6 @@ export function login() {
     emailElement.value = '';
     passwordElement.value = '';
     loginUser(email, password);
-    setName(name);
+    setUserInfo('name', name);
 
 }

@@ -3,6 +3,7 @@
     <canvas height="200px"  width="200px" id="canvas" style="display:none"></canvas>
     
     <body>
+        <div class="wrapper">
         <div id="start">
             <a href="#">Start Game</a>
         </div>
@@ -19,8 +20,8 @@
         </div>
         <form>
             <div class="login-input" style="display:none">
-                <label for="name">Name: </label><br/>
-                <input type="text" id="name" name="name" placeholder="Name"><br/>
+                <label for="nameInput">Name: </label><br/>
+                <input type="text" id="nameInput" name="nameInput" placeholder="Name"><br/>
                 <label for="email">Email: </label><br/>
                 <input type="text" id="email" name="email" placeholder="Email"><br/>
                 <label for="password">Password: </label><br/>
@@ -34,9 +35,10 @@
                 <div id="back">
                     <a href="#">Back</a>
                 </div>
-            </div>
+            </div>      
         </form>
-        
+        <h3 id="name" display="none;">Anonymous User</h3>
+    </div>
     </body>
 
 

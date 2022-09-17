@@ -11,6 +11,12 @@ body {
             user-select: none;
 }
 
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
 #start, #game-over {
     font-family:Arial, Helvetica, sans-serif;
     color: #ffffff;
@@ -58,6 +64,16 @@ canvas {
     display: none;
     position: absolute;
     z-index: 0;
+}
+
+#name {
+    font-family: Arial, Helvetica, sans-serif;
+    margin-right: 50%;
+    margin-left : 50%;
+    bottom: 30px;
+    position: absolute;
+    z-index: 3;
+    display: none;
 }
 
 .login-input {
