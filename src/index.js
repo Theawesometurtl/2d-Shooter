@@ -12,6 +12,6 @@ canvas.height = window.innerHeight;
 document.getElementById("start").addEventListener("click", function() {start()});
 document.getElementById("game-over").addEventListener("click", function() {gameEnd()});
 document.getElementById("login-screen").addEventListener("click", function() {loginScreen()});
-document.getElementById("sign-up").addEventListener("click", function() {(signUp())});
+document.getElementById("sign-up").addEventListener("click", function() {signUp()});
 document.getElementById("login").addEventListener("click", function() {login()});
 document.getElementById("back").addEventListener("click", function() {toMenu()});

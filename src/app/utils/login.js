@@ -44,7 +44,7 @@ export function setUserInfo(key, value) {
   if (globals.uid !== undefined) {
     console.log('hi')
     set(ref(db, 'users/' + globals.uid), {
-        key: value
+        [key]: value
       });
   }
 }
@@ -88,6 +88,5 @@ export function login() {
     emailElement.value = '';
     passwordElement.value = '';
     loginUser(email, password);
-    setUserInfo('name', name);
 
 }
