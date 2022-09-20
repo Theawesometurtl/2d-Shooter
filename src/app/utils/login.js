@@ -1,10 +1,12 @@
 import { globals, canvas } from '../globals.js';
 import { initializeApp } from 'firebase/app';
-import { getDatabase, set, ref } from "firebase/database";
+import { getDatabase, ref } from "firebase/database";
 import { getAuth, onAuthStateChanged } from "firebase/auth";//why did I decide to add all this?
 import { getAnalytics } from "firebase/analytics";
 import { createUser, loginUser } from './createUser.js';
 import { toMenu } from '../toMenu.js';
+import { setUserInfo } from './setUserInfo.js';
+import { getCurrentUser } from './checkAuthState.js';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAAkPI-g8MRhzDjupHlZ-NOvRLDV4j8vxk",
@@ -20,35 +22,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export const auth = getAuth(app);
-const db = getDatabase(app);
-
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
-    globals.uid = user.uid;
-    toMenu();
-    let name = ref(db, 'users/' + globals.uid + 'name');
-    let nameElement = document.getElementById('name');
-    nameElement.style.display = 'block';
-    nameElement.innerHTML = name;
-    // ...
-  } else {
-    // User is signed out
-    // ...
-  }
-});
-
-
-export function setUserInfo(key, value) {
-  if (globals.uid !== undefined) {
-    console.log('hi')
-    set(ref(db, 'users/' + globals.uid), {
-        [key]: value
-      });
-  }
-}
-
+export const db = getDatabase(app);
 
 
 export function loginScreen() {
@@ -74,6 +48,7 @@ export function signUp() {
   emailElement.value = '';
   passwordElement.value = '';
   createUser(email, password);
+  getCurrentUser();
   setUserInfo('name', name);
 }
 
@@ -88,5 +63,6 @@ export function login() {
     emailElement.value = '';
     passwordElement.value = '';
     loginUser(email, password);
+    getCurrentUser();
 
 }
