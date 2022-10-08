@@ -1,5 +1,5 @@
 import { globals } from "../globals.js";
-import { setUserInfo } from "./setUserInfo";
+import { setUserInfo } from "./firebaseUtils/setUserInfo";
 export function gameEnd() {
     clearInterval(globals.game);
     canvas.style = 'display: none';

@@ -1,6 +1,6 @@
 import { set, ref } from 'firebase/database';
-import { db } from "./login";
-import { globals } from "../globals";
+import { db } from "./initializeFirebase.js";
+import { globals } from "../../globals";
 
 export function setUserInfo(key, value) {
     console.log(globals.uid, key, value);

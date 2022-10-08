@@ -15,10 +15,12 @@ let ctx = canvas.getContext('2d');
 let centerX = canvas.width / 2;
 let centerY = canvas.height / 2;
 let entityList = {};
+let app;
 
 function recenter() {
     centerX = canvas.width / 2
     centerY = canvas.height / 2
 }
+
 
 export {globals, canvas, ctx, centerX, centerY, entityList, recenter};

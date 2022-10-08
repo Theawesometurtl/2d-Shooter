@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
-import { auth } from "./login";
+import { auth } from './initializeFirebase.js';
 
 export function createUser(email, password) {
     createUserWithEmailAndPassword(auth, email, password)

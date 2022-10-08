@@ -1,28 +1,9 @@
 import { globals, canvas } from '../globals.js';
-import { initializeApp } from 'firebase/app';
-import { getDatabase, ref } from "firebase/database";
-import { getAuth, onAuthStateChanged } from "firebase/auth";//why did I decide to add all this?
-import { getAnalytics } from "firebase/analytics";
-import { createUser, loginUser } from './createUser.js';
+import { createUser, loginUser } from './firebaseUtils/createUser.js';
 import { toMenu } from '../toMenu.js';
-import { setUserInfo } from './setUserInfo.js';
-import { getCurrentUser } from './checkAuthState.js';
+import { setUserInfo } from './firebaseUtils/setUserInfo.js';
+import { updateCurrentUser } from 'firebase/auth';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAAkPI-g8MRhzDjupHlZ-NOvRLDV4j8vxk",
-  authDomain: "d-shooter-4f1cc.firebaseapp.com",
-  databaseURL: "https://d-shooter-4f1cc-default-rtdb.firebaseio.com",
-  projectId: "d-shooter-4f1cc",
-  storageBucket: "d-shooter-4f1cc.appspot.com",
-  messagingSenderId: "124296778100",
-  appId: "1:124296778100:web:594d5cc09878b016ec9c21",
-  measurementId: "G-KZ55MXP4ES"
-};
-
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-export const auth = getAuth(app);
-export const db = getDatabase(app);
 
 
 export function loginScreen() {
@@ -48,7 +29,7 @@ export function signUp() {
   emailElement.value = '';
   passwordElement.value = '';
   createUser(email, password);
-  getCurrentUser();
+  globals.uid = firebase.auth().currentUser.uid;
   setUserInfo('name', name);
 }
 

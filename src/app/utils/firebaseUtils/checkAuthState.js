@@ -1,16 +1,9 @@
-import { globals } from '../globals';
-import { auth } from './login'
+import { globals } from '../../globals';
+import { auth, db } from './initializeFirebase'
 import { onAuthStateChanged } from 'firebase/auth';
+import { ref } from 'firebase/database';
+import { toMenu } from '../../toMenu';
 
-
-export function getCurrentUser(auth) {
-    globals.uid = new Promise((resolve, reject) => {
-       const unsubscribe = auth.onAuthStateChanged(user => {
-          unsubscribe();
-          resolve(user);
-       }, reject);
-    });
-  }
 
 onAuthStateChanged(auth, (user) => {
     if (user) {
