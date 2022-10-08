@@ -2,7 +2,8 @@ import { globals, canvas } from '../globals.js';
 import { createUser, loginUser } from './firebaseUtils/createUser.js';
 import { toMenu } from '../toMenu.js';
 import { setUserInfo } from './firebaseUtils/setUserInfo.js';
-import { updateCurrentUser } from 'firebase/auth';
+import { auth, db } from './firebaseUtils/initializeFirebase.js';
+import { ref } from 'firebase/database';
 
 
 
@@ -19,18 +20,27 @@ export function loginScreen() {
 }
 
 export function signUp() {
-  let nameElement = document.getElementById("name");
-  let emailElement = document.getElementById("email");
-  let passwordElement = document.getElementById("password");
-  let name = nameElement.value;
-  let email = emailElement.value;
-  let password = passwordElement.value;
-  
-  emailElement.value = '';
-  passwordElement.value = '';
-  createUser(email, password);
-  globals.uid = firebase.auth().currentUser.uid;
-  setUserInfo('name', name);
+    let nameElement = document.getElementById("nameInput");
+    let emailElement = document.getElementById("email");
+    let passwordElement = document.getElementById("password");
+    globals.username = nameElement.value;
+    let email = emailElement.value;
+    let password = passwordElement.value;
+
+    emailElement.value = '';
+    passwordElement.value = '';
+    nameElement.value = '';
+    createUser(email, password)
+    .then(function(result) {
+        return result.user.updateProfile({
+          displayName: globals.username
+        })
+      }).catch(function(error) {
+        console.log(error);
+      });
+
+
+    
 }
 
 export function login() {
@@ -44,6 +54,17 @@ export function login() {
     emailElement.value = '';
     passwordElement.value = '';
     loginUser(email, password);
-    getCurrentUser();
 
+    const user = auth.currentUser;
+    if (user !== null) {
+    globals.uid = user.uid;
+    let r = ref(db, 'users/' + globals.uid + '/highscore')
+    if (r !== null && r > globals.highscore) {
+        globals.highscore = r;
+        console.log(r);
+        document.getElementById('highscore').innerHTML = globals.highscore;
+    }
+      toMenu();
+    
+    }
 }

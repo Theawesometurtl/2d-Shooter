@@ -1,5 +1,6 @@
 import { globals } from "../globals.js";
 import { setUserInfo } from "./firebaseUtils/setUserInfo";
+import { auth } from "./firebaseUtils/initializeFirebase.js";
 export function gameEnd() {
     clearInterval(globals.game);
     canvas.style = 'display: none';
@@ -11,5 +12,10 @@ export function gameEnd() {
         globals.highscore = globals.score;
         document.getElementById('highscore').innerText = 'HighScore: ' + globals.highscore;
         setUserInfo('highscore', globals.highscore);
+    }
+    const user = auth.currentUser;
+    if (user !== null) {
+    globals.uid = user.uid;
+    setUserInfo('highscore', globals.highscore);
     }
 }

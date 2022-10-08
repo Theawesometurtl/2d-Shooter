@@ -1,4 +1,3 @@
-import { initializeApp } from 'firebase/app';
 let globals = {
     score : 0,
     highscore : 0,
@@ -7,7 +6,8 @@ let globals = {
     mousePos : {},
     pressedKeys : {},
     player : undefined,
-    uid : undefined
+    uid : undefined,
+    username : undefined
 };
 
 let canvas = document.querySelector('canvas');
@@ -15,7 +15,6 @@ let ctx = canvas.getContext('2d');
 let centerX = canvas.width / 2;
 let centerY = canvas.height / 2;
 let entityList = {};
-let app;
 
 function recenter() {
     centerX = canvas.width / 2

@@ -73,7 +73,7 @@ canvas {
     bottom: 30px;
     position: absolute;
     z-index: 3;
-    display: none;
+    display: block;
 }
 
 .login-input {
