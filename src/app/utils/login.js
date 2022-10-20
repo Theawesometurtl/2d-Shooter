@@ -30,13 +30,8 @@ export function signUp() {
     emailElement.value = '';
     passwordElement.value = '';
     nameElement.value = '';
-    createUser(email, password).then(function(result) {
-        return result.updateProfile({
-          displayName: globals.username
-        })
-      }).catch(function(error) {
-        console.log(error);
-      });
+    createUser(email, password)
+
 
 
     
