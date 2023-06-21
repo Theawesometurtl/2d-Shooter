@@ -1,4 +1,4 @@
-import { canvas } from "sharedGlobals";
+import { canvas } from "../sharedGlobals";
 
 export function toMenu(): void {
     canvas.style = 'display: none';

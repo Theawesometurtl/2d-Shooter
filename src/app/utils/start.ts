@@ -1,8 +1,8 @@
-import { main } from '../game.js';
-import { findMousePos } from './findMousePos.js';
-import { Bullet } from '../Bullet.js';
-import { Player } from '../Player.js';
-import { globals, entityList, canvas, centerX, centerY, recenter } from '../globals.js';
+import { main } from '../game';
+import { findMousePos } from '.././actions/findMousePos';
+import { Bullet } from '../Bullet';
+import { Player } from '../Player';
+import { globals, entityList, canvas, centerX, centerY, recenter } from '../../sharedGlobals';
 
 
 export function start () {
@@ -15,9 +15,9 @@ export function start () {
     document.getElementById('score').innerHTML = 'Score: ' + globals.score;
     
     document.body.style.backgroundColor = '#ffffff';
-    entityList.enemy = [];
-    entityList.playerBullet = [];
-    entityList.shooterBullet = [];
+    entityList.Enemies = [];
+    entityList.PlayerBullets = [];
+    entityList.ShooterBullets = [];
     
     globals.player = new Player(centerX, centerY);
     globals.score = 0;
@@ -25,16 +25,11 @@ export function start () {
 
     //event listeners
     canvas.addEventListener("click", function(){
-        let b = new Bullet(globals.player.gunAngle, globals.player.position.x, globals.player.position.y, globals.player.bulletSpeed, 'playerBullet', 'black');
-        entityList.playerBullet.push(b);
+        let b = new Bullet(globals.player.gunAngle, globals.player.position.x, globals.player.position.y, globals.player.bulletSpeed, 'PlayerBullets', 'black');
+        entityList.PlayerBullets.push(b);
         //console.log( b);
     });
     
     canvas.addEventListener("mousemove", findMousePos);
-    
-    
-    
-    window.onkeyup = function(e) { globals.pressedKeys[e.keyCode] = false; }
-    window.onkeydown = function(e) { globals.pressedKeys[e.keyCode] = true; }
     
   };

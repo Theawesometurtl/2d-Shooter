@@ -1,8 +1,8 @@
-import { globals, canvas } from '../globals.js';
-import { createUser, loginUser } from './firebaseUtils/createUser.js';
+import { globals, canvas } from '../../sharedGlobals';
+import { createUser, loginUser } from './firebaseUtils/createUser';
 import { toMenu } from '../toMenu.js';
-import { setUserInfo } from './firebaseUtils/setUserInfo.js';
-import { auth, db } from './firebaseUtils/initializeFirebase.js';
+import { setUserInfo } from './firebaseUtils/setUserInfo';
+import { auth, db } from './firebaseUtils/initializeFirebase';
 import { ref } from 'firebase/database';
 
 

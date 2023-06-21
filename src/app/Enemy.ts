@@ -1,5 +1,5 @@
-import { globals, entityList, ctx, centerX, centerY} from "./globals.js";
-import { changeScore } from "./utils/changeScore.js";
+import { globals, entityList, ctx, centerX, centerY} from "../sharedGlobals";
+import { changeScore } from "./utils/changeScore";
 
 export class Enemy {
     static numberOfEnemies = 0;

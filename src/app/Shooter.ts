@@ -1,6 +1,6 @@
 import { globals, entityList } from "../sharedGlobals";
-import { Enemy } from "./Enemy.js";
-import { Bullet } from "./Bullet.js";
+import { Enemy } from "./Enemy";
+import { Bullet } from "./Bullet";
 
 export class Shooter extends Enemy {
     shootDistance: number;

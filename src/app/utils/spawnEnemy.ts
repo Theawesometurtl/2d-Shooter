@@ -1,6 +1,6 @@
-import { globals, entityList, canvas, centerX, centerY } from "../globals.js";
-import { Enemy } from "../Enemy.js";
-import { Shooter } from "../Shooter.js";
+import { globals, entityList, canvas, centerX, centerY } from "../../sharedGlobals";
+import { Enemy } from "../Enemy";
+import { Shooter } from "../Shooter";
 
 export function spawnEnemy(type:string) {
     let random1 = Math.random();
