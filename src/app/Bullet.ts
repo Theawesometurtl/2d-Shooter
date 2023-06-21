@@ -1,9 +1,19 @@
-import {globals, entityList, ctx, centerX, centerY} from './globals.js';
+import {globals, entityList, ctx, centerX, centerY} from '../sharedGlobals';
 
 export class Bullet {
     static numberOfBullets = 0;
+    type: string;
+    colour: string;
+    bulletNumber: number;
+    angle: number;
+    speed: number;
+    position: {[key: string]: number}
+    xSpeed: number;
+    ySpeed: number;
+    radius: number;
+    killed: boolean;
 
-    constructor(angle, x, y, speed, type, colour) {
+    constructor(angle: number, x: number, y: number, speed: number, type: string, colour:string) {
         this.type = type;
         this.colour = colour;
 
@@ -21,7 +31,7 @@ export class Bullet {
         this.radius = 2;
         this.killed = false;
     }
-    update() {
+    update():void {
         this.position.x += this.xSpeed;
         this.position.y += this.ySpeed;
         let x = this.position.x
@@ -39,7 +49,7 @@ export class Bullet {
                 }
         }
     }
-    draw() {
+    draw():void {
         let x = this.position.x
         let y = this.position.y
         if (globals.cameraLock === true) {

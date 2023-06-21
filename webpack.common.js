@@ -2,9 +2,19 @@ const path = require("path");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
+  resolve: {
+    extensions: [".ts", ".tsx", ".js"]
+  },
   entry: {
-    main: "./src/index.js",
-    vendor: "./src/vendor.js"
+    driving: "./src/driving.ts",
+    maincss: "./src/styling/main.css",
+    main: "./src/main.ts",
+    flappy: "./src/flappy.ts",
+    customSimulation: "./src/customSimulation.ts",
+    drawTrack: "./src/drawTrack.ts",
+    vendor: "./src/vendor.ts",
+    gamecss: "./src/styling/game.css",
+    
   },
   module: {
     rules: [
@@ -21,6 +31,11 @@ module.exports = {
             outputPath: "imgs"
           }
         }
+      },
+      {
+        test: /\.ts?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
       }
     ]
   }

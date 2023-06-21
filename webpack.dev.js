@@ -4,16 +4,19 @@ const { merge } = require("webpack-merge");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = merge(common, {
+  resolve: {
+    extensions: ['.ts', '.js', '.json']
+  },
   mode: "development",
   output: {
-    filename: "[name].bundle.js",
+    filename: "[name][hash].bundle.js",
     path: path.resolve(__dirname, "dist")
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/template.html",
-      favicon: "./src/favicon.ico"
-    })
+      template: "./src/templates/template.html",
+      favicon: "./src/favicons/favicon.ico",
+    }),
   ],
   module: {
     rules: [

@@ -1,8 +1,22 @@
 import { gameEnd } from "./utils/gameEnd";
-import { globals, entityList, ctx, centerX, centerY } from "./globals.js";
+import { globals, entityList, ctx, centerX, centerY } from "../sharedGlobals";
 import { Bullet } from "./Bullet.js";
 export class Player {
-    constructor(xPos, yPos) {
+    position: {[key: string]: number};
+    velocity: {[key: string]: number};
+    speed: number;
+    radius: number;
+    gunRadius: number;
+    drag: number;
+    maxSpeed: number;
+    gunAngle: number;
+    bulletSpeed: number;
+    life: number;
+    spinAttackTimer: number;
+    invulnerable: boolean;
+    spinAttackAngle: number;
+
+    constructor(xPos: number, yPos: number) {
         this.position = {
             x : xPos,
             y : yPos
@@ -91,12 +105,12 @@ export class Player {
             this.gunAngle += Math.PI;
         }
 
-        for (let i = 0; i < entityList.shooterBullet?.length; i++) {
-            if (entityList.shooterBullet[i].position.x > this.position.x -this.radius &&
-                entityList.shooterBullet[i].position.x < this.position.x + this.radius &&
-                entityList.shooterBullet[i].position.y > this.position.y - this.radius &&
-                entityList.shooterBullet[i].position.y < this.position.y + this.radius) {
-                    entityList.shooterBullet.splice(i, 1);
+        for (let i = 0; i < entityList.ShooterBullets?.length; i++) {
+            if (entityList.ShooterBullets[i].position.x > this.position.x -this.radius &&
+                entityList.ShooterBullets[i].position.x < this.position.x + this.radius &&
+                entityList.ShooterBullets[i].position.y > this.position.y - this.radius &&
+                entityList.ShooterBullets[i].position.y < this.position.y + this.radius) {
+                    entityList.ShooterBullets.splice(i, 1);
                     this.hurt();
             }
         }
@@ -105,7 +119,7 @@ export class Player {
             this.spinAttackAngle += 0.2;
             for (let i = 0; i < 6; i+=0.3) {
                 let b = new Bullet(this.spinAttackAngle + i, this.position.x, this.position.y, this.bulletSpeed, 'playerBullet', 'black');
-                entityList.playerBullet.push(b); 
+                entityList.PlayerBullets.push(b); 
             }
             
         } else {

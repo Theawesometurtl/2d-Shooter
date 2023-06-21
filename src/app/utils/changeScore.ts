@@ -1,7 +1,7 @@
-import { globals } from "../globals.js";
-export function changeScore(addAmount) {
+import { globals } from "../../sharedGlobals";
+export function changeScore(addAmount: number) {
     globals.score += addAmount;
-    if (score > highscore) {
+    if (globals.score > globals.highscore) {
         globals.highscore = globals.score;
     }
     document.getElementById('score').innerHTML = 'Score: ' + globals.score;

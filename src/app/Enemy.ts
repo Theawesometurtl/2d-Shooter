@@ -4,8 +4,15 @@ import { changeScore } from "./utils/changeScore.js";
 export class Enemy {
     static numberOfEnemies = 0;
     static radius = 12;
+    type: string;
+    colour: string;
+    position: {[key: string]: number};
+    speed: number;
+    radius: number;
+    enemyNumber: number;
 
-    constructor(xpos, ypos) {
+
+    constructor(xpos: number, ypos: number) {
         this.type = 'normal';
 
         this.colour = 'red';

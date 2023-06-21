@@ -2,10 +2,12 @@ const path = require("path");
 const { SourceMapDevToolPlugin } = require("webpack");
 
 module.exports = {
+  resolve: {
+    extensions: ['.ts', '.js', '.json']
+  },
   mode: "development",
-  entry: "./src/index.js",
   output: {
-    filename: "main.js",
+    filename: "[name][hash]bundle.js",
     path: path.resolve(__dirname, "dist")
   },
   rules: [

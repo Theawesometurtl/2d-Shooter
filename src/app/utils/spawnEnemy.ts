@@ -1,30 +1,30 @@
 import { globals, entityList, canvas, centerX, centerY } from "../globals.js";
-import { Enemy } from "../Enemy";
-import { Shooter } from "../Shooter";
+import { Enemy } from "../Enemy.js";
+import { Shooter } from "../Shooter.js";
 
-export function spawnEnemy(type) {
+export function spawnEnemy(type:string) {
     let random1 = Math.random();
     let random2 = Math.random();
-    let x;
-    let y;
+    let x: number;
+    let y: number;
     let e;
     if (random1 < 0.25) {
-        x = parseInt(random2 * canvas.width)
-        y = parseInt(-Enemy.radius)
+        x = random2 * canvas.width
+        y = -Enemy.radius
         
     }
     else if (random1 < 0.5) {
-        x = parseInt(canvas.width + Enemy.radius)
-        y = parseInt(random2 * canvas.height)
+        x = canvas.width + Enemy.radius
+        y = random2 * canvas.height
 
     }
     else if (random1 < 0.75) {
-        x = parseInt(random2 * canvas.width)
-        y = parseInt(canvas.height + Enemy.radius)
+        x = random2 * canvas.width
+        y = canvas.height + Enemy.radius
 
     } else {
-        x = parseInt(random2- Enemy.radius)
-        y = parseInt(random2 * canvas.height)
+        x = random2- Enemy.radius
+        y = random2 * canvas.height
 
     }
     if (globals.cameraLock === true) {

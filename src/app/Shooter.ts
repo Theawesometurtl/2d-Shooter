@@ -1,9 +1,16 @@
-import { globals, entityList } from "./globals.js";
+import { globals, entityList } from "../sharedGlobals";
 import { Enemy } from "./Enemy.js";
 import { Bullet } from "./Bullet.js";
 
 export class Shooter extends Enemy {
-    constructor(x, y) {
+    shootDistance: number;
+    type: string;
+    reloadSpeed: number;
+    reload: number;
+    colour: string;
+    bulletSpeed: number;
+
+    constructor(x: number, y: number) {
         super(x, y);
         this.shootDistance = 300;
         this.type = 'shooter';
@@ -23,7 +30,7 @@ export class Shooter extends Enemy {
                         angle += Math.PI;
                     }
                     let b = new Bullet(angle, this.position.x, this.position.y, this.bulletSpeed, 'shooterBullet', 'red');
-                    entityList.shooterBullet.push(b);
+                    entityList.ShooterBullets.push(b);
                 }
                 
         } else {

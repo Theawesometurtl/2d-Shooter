@@ -1,8 +1,8 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile} from "firebase/auth";
-import { auth } from './initializeFirebase.js';
-import { globals } from "../../globals.js";
+import { auth } from './initializeFirebase';
+import { globals } from "../../../sharedGlobals";
 
-export function createUser(email, password) {
+export function createUser(email: string, password: string): void {
     createUserWithEmailAndPassword(auth, email, password)
     .then(function(result) {
         updateProfile(auth.currentUser, {
@@ -13,7 +13,7 @@ export function createUser(email, password) {
       });
 }
 
-export function loginUser(email, password) {
+export function loginUser(email: string, password: string): void {
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         // Signed in 

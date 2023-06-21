@@ -1,4 +1,6 @@
-export function toMenu() {
+import { canvas } from "sharedGlobals";
+
+export function toMenu(): void {
     canvas.style = 'display: none';
     document.getElementById('start').style.display = 'block';
     document.getElementById('highscore').style.display = 'block';

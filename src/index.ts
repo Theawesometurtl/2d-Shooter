@@ -1,7 +1,7 @@
-import { start } from './app/utils/start.js';
-import { gameEnd } from './app/utils/gameEnd.js';
-import { canvas, globals } from './app/globals.js';
-import { loginScreen, login, signUp } from './app/utils/login.js';
+import { start } from './app/utils/start';
+import { gameEnd } from './app/utils/gameEnd';
+import { canvas, globals } from './sharedGlobals';
+import { loginScreen, login, signUp } from './app/utils/login';
 import { toMenu } from './app/toMenu.js';
 import { auth, db } from './app/utils/firebaseUtils/initializeFirebase'
 import { onAuthStateChanged } from 'firebase/auth';
