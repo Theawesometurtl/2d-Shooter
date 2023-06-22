@@ -1,4 +1,4 @@
-import { globals, canvas } from "../../sharedGlobals";
+import { globals, canvas } from "./src/sharedGlobals";
 export function findMousePos(event: MouseEvent) {
     //needed to get mouse position relative to the canvas
     let rect = canvas.getBoundingClientRect();

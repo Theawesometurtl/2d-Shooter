@@ -18,6 +18,11 @@ module.exports = merge(common, {
       favicon: "./src/favicons/favicon.ico",
       blocks: ["gamecss", "index"]
     }),
+    new HtmlWebpackPlugin({
+      template: "./src/templates/template.html",
+      favicon: "./src/favicons/favicon.ico",
+      blocks: ["networkcss", "index"]
+    }),
   ],
   module: {
     rules: [

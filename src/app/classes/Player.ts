@@ -70,7 +70,7 @@ export class Player {
         ctx.closePath();
         
     }
-    update() {
+    update(): boolean {
         if (Math.abs(this.velocity.x) + Math.abs(this.velocity.y) < this.maxSpeed) {
             if (globals.pressedKeys[87]) {//w
             this.velocity.y += -this.speed;
@@ -126,6 +126,7 @@ export class Player {
             this.invulnerable = false;
         }
         //console.log("x velocity: " + this.velocity.x + ", y velocity: " + this.velocity.y);
+        return false;
     }
     hurt() {
         if (this.invulnerable === false) {

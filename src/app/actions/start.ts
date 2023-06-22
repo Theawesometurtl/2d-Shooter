@@ -1,5 +1,5 @@
 import { main } from '../../game';
-import { findMousePos } from '.././actions/findMousePos';
+import { findMousePos } from '../../../findMousePos';
 import { Bullet } from '../classes/Bullet';
 import { Player } from '../classes/Player';
 import { globals, entityList, canvas, centerX, centerY, recenter } from '../../sharedGlobals';
