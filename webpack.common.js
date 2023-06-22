@@ -6,14 +6,9 @@ module.exports = {
     extensions: [".ts", ".tsx", ".js"]
   },
   entry: {
-    driving: "./src/driving.ts",
-    maincss: "./src/styling/main.css",
-    main: "./src/main.ts",
-    flappy: "./src/flappy.ts",
-    customSimulation: "./src/customSimulation.ts",
-    drawTrack: "./src/drawTrack.ts",
     vendor: "./src/vendor.ts",
     gamecss: "./src/styling/game.css",
+    index: "./src/index.ts",
     
   },
   module: {

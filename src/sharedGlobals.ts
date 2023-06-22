@@ -1,12 +1,8 @@
-import { Car } from './app/classes/Car';
-import { Flappy } from './app/classes/Flappy';
-import { Pipes } from './app/classes/Pipes';
 import { NN } from './app/classes/NN';
-import { Barrier } from './app/classes/Barrier';
-import { Player } from './app/Player';
-import { Shooter } from './app/Shooter';
-import { Enemy } from './app/Enemy';
-import { Bullet } from 'app/Bullet';
+import { Player } from './app/classes/Player';
+import { Shooter } from './app/classes/Shooter';
+import { Enemy } from './app/classes/Enemy';
+import { Bullet } from 'app/classes/Bullet';
 
 
 // globals
@@ -43,25 +39,15 @@ canvas.height = window.innerHeight;
 const ctx = canvas.getContext('2d');
 
 let entityList: {
-  "Flappies": Flappy[];
-  "Pipes": Pipes[];
-  "Cars": Car[];
   "NNs": NN[];
-  "Barrier": Barrier[];
-  "PlayerBullets": Bullet[];
-  "ShooterBullets": Bullet[];
+  "Bullets": {[key:string]: Bullet[]};
   "Shooters": Shooter[];
   "Enemies": Enemy[];
   "Player": Player[];
 
 } = {
-  "Flappies": [],
-  "Pipes": [],
-  "Cars": [],
   "NNs": [],
-  "Barrier": [],
-  "ShooterBullets": [],
-  "PlayerBullets": [],
+  "Bullets": {"Player": [], "Shooter": []},
   "Shooters": [],
   "Enemies": [],
   "Player": [],
