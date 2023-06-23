@@ -9,7 +9,7 @@
     },
     "include": [
         "src/**/*.ts"  // Update this path based on your project structure
-, "findMousePos.ts"    ],
+, "src/app/actions/findMousePos.ts"    ],
     "exclude": [
         "node_modules"
     ]

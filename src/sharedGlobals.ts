@@ -5,13 +5,15 @@ import { Enemy } from './app/classes/Enemy';
 import { Bullet } from 'app/classes/Bullet';
 
 
+let players = 2;
+let maxBulletsPerPlayer = 3;
 // globals
 let globals = {pipeTimer: 100 as number,
                 timer: 0 as number,
                 simulatedNNs: 300 as number,
                 fitnessDictionary : {} as { [key: number]: number},
                 NNKeepers: 30 as number,
-                NNBrain: [4, 8, 8, 8, 6, 4, 1] as number[],
+                NNBrain: [players*4 + (players-1)*maxBulletsPerPlayer, 10, 8, 8, 6, 4, 4] as number[],
                 bestNNs: {} as { [key: number]: string},
                 mousePos: {} as { [key: string]: number},
                 pressedKeys : {} as { [key: string]: number},
@@ -29,7 +31,6 @@ let globals = {pipeTimer: 100 as number,
                 highscore : 0 as number,
                 game : undefined as ReturnType<typeof setInterval>,
                 cameraLock : true,
-                player : undefined as Player,
                 uid : undefined as string,
                 username : undefined as string,
 };

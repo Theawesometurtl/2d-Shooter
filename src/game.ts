@@ -1,8 +1,12 @@
 import { ctx, globals, entityList, recenter, canvas } from "./sharedGlobals";
 import { spawnEnemy } from "./app/actions/spawnEnemy";
-import { drawText } from "app/actions/drawInputs";
-import { networkStart } from "app/actions/networkStart";
-import { activationFunction } from "app/actions/activationFunction";
+import { drawText } from "./app/actions/drawInputs";
+import { networkStart } from "./app/actions/networkStart";
+import { activationFunction } from "./app/actions/activationFunction";
+import { shoot } from "./app/actions/shoot";
+import { simulationReset } from "./app/actions/simulationReset";
+import { displayNetwork } from "./app/actions/displayNetwork";
+import { encodeNetwork } from "./app/actions/encodeDecode";
 
 
 
@@ -12,7 +16,7 @@ let spawnrateGrowth = 0.00001
 
 export function updateDraw() {
 
-    for (let i = 0; i < entityList.Enemies.length; i++) {
+    for (let i = 0; i < entityList.Player.length; i++) {
         entityList.Player[i].draw();
         if (entityList.Player[i].update()) {
             entityList.Player.splice(i, 1);
@@ -96,6 +100,10 @@ export function battle() {
         let by: number[] = [];
         let bvx: number[] = [];
         let bvy: number[] = [];
+        let p1x: number;
+        let p1y: number;
+        let p1vx: number;
+        let p1vy: number;
 
         for (let p=0; p<entityList.Player.length; p++) {
             px.push(entityList.Player[p].position.x);
@@ -106,31 +114,51 @@ export function battle() {
 
         for (let p=0; p<entityList.Player.length; p++) {
             if (entityList.Player[p] !== undefined) { 
-                
+                p1x = entityList.Player[p].position.x
+                p1y = entityList.Player[p].position.y
+                p1vx = entityList.Player[p].velocity.x
+                p1vy = entityList.Player[p].velocity.y
 
+                let pxCopy = px.splice(p, 1);
+                let pyCopy = py.splice(p, 1);
+                let pvxCopy = pvx.splice(p, 1);
+                let pvyCopy = pvy.splice(p, 1);
+                
                 // console.log(activationFunction(flappyY, flappyVelocity, pipeX, pipeGapY));
-                let inputs: number[] = activationFunction(flappyY, flappyVelocity, pipeX, pipeGapY);
+                let inputs: number[] = activationFunction(p1x, p1y, p1vx, p1vy, ...pvxCopy, ...pvyCopy, ...pxCopy, ...pyCopy);
     
                 let outputs = entityList.NNs[p].update(0, ...inputs);
                 if (outputs[0] > .5) {
-                    entityList.Flappies[f].jump();
+                    shoot(entityList.Player[p].gunAngle, entityList.Player[p].position.x, entityList.Player[p].position.y, entityList.Player[p].bulletSpeed, 'Player', 'black');
+                }
+                if (outputs[1] > .5) {
+                    entityList.Player[p].velocity.x += ((outputs[1]*2) - 1) * entityList.Player[p].speed;
+                }
+                if (outputs[2] > .5) {
+                    entityList.Player[p].velocity.y += ((outputs[2]*2) - 1) * entityList.Player[p].speed;
+                }
+                if (outputs[3] > .5) {
+                    entityList.Player[p].gunAngle = outputs[3] * Math.PI;
                 }
                 // console.log(outputs);
-                if (flappyDeathCheck(entityList.Flappies[f].position.x, entityList.Flappies[f].position.y, entityList.Flappies[f].width, entityList.Flappies[f].height)) {
-                    globals.fitnessDictionary[f] = globals.timer - 2 * Math.abs(entityList.Flappies[f].position.y - entityList.Pipes[0].gapHeight);
-                    entityList.Flappies[f] = undefined;
+                if (entityList.Player[p].life < 1 || globals.timer > globals.timerLimit) {
+                    globals.fitnessDictionary[p] = globals.score;
+                    if (globals.timer <= globals.timerLimit){
+                        globals.score++;
+                    }
+                    entityList.Player[p] = undefined;
                     if (Object.keys(globals.fitnessDictionary).length === globals.simulatedNNs) {
-                        simulationReset(true);
+                        simulationReset();
                     }
                 } else {
-                    entityList.Flappies[f].update();
-                    entityList.Flappies[f].draw();
+                    entityList.Player[p].update();
+                    entityList.Player[p].draw();
                 }
             }
         }
         
         // ctx.fillText(outputs, 10, 50);
-        if (entityList.Flappies[0] !== undefined) {
+        if (entityList.Player[0] !== undefined) {
             // console.log(entityList.NNs[0].biasMutationAmount)
             //entityList.NNs[0].biasMutationAmount, entityList.NNs[0].biasMutationRate, entityList.NNs[0].weightMutationAmount, entityList.NNs[0].weightMutationRate
             //drawText(canvas.width-100, 50, 50, pipeX, pipeGapY, flappyY, flappyVelocity);
@@ -140,28 +168,22 @@ export function battle() {
         displayNetwork(100, 50, canvas.width -620, canvas.height - 375, entityList.NNs[0].weightArray, entityList.NNs[0].biasArray, 0);
         //basicCheck()
         globals.timer++;
-        if (globals.timer > 10000) {
+        if (globals.score > 0) {
             console.log(encodeNetwork(entityList.NNs[0].weightArray, entityList.NNs[0].biasArray));
         }
         
         
         if (!checkbox.checked) {
             globals.human = true;
-            flappyStart();
+            networkStart();
             
         }
     }
-    drawText(1000, 45, 100, "Pipe Number: " + globals.pipesPassed.toString())
-    globals.pipeTimer ++;
-    
-    if (globals.pipeTimer % 80 === 0) {
-        entityList.Pipes.push(new Pipes());
-    }
 }
 
 
     
 
 
-}
+
 

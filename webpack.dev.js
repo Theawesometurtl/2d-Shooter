@@ -14,14 +14,16 @@ module.exports = merge(common, {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      filename: "index.html",
       template: "./src/templates/template.html",
       favicon: "./src/favicons/favicon.ico",
-      blocks: ["gamecss", "index"]
+      chunks: ["gamecss", "index"],
     }),
     new HtmlWebpackPlugin({
-      template: "./src/templates/template.html",
+      filename: "battle.html",
+      template: "./src/templates/battle.html",
       favicon: "./src/favicons/favicon.ico",
-      blocks: ["networkcss", "index"]
+      chunks: ["networkcss", "battle"],
     }),
   ],
   module: {

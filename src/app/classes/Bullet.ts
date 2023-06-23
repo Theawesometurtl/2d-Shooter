@@ -37,8 +37,8 @@ export class Bullet {
         let x = this.position.x
         let y = this.position.y
         if (globals.cameraLock === true) {
-            x += -globals.player.position.x + centerX;
-            y += -globals.player.position.y + centerY;
+            x += -entityList.Player[0].position.x + centerX;
+            y += -entityList.Player[0].position.y + centerY;
         }
         if (x > canvas.width  || x < 0 ||
             y > canvas.height || y < 0) {
@@ -50,8 +50,8 @@ export class Bullet {
         let x = this.position.x
         let y = this.position.y
         if (globals.cameraLock === true) {
-            x += -globals.player.position.x + centerX;
-            y += -globals.player.position.y + centerY;
+            x += -entityList.Player[0].position.x + centerX;
+            y += -entityList.Player[0].position.y + centerY;
         }
         ctx.beginPath();
         ctx.arc(x, y, this.radius, 0, 2 * Math.PI, false);

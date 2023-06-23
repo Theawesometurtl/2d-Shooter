@@ -12,7 +12,7 @@ export class Shooter extends Enemy {
 
     constructor(x: number, y: number) {
         super(x, y);
-        this.shootDistance = 300;
+        this.shootDistance = 250;
         this.type = 'shooter';
         this.reloadSpeed = 0.01;
         this.reload = 0;
@@ -20,13 +20,13 @@ export class Shooter extends Enemy {
         this.bulletSpeed = 6;
     }
     update(): boolean {
-        if (Math.abs(globals.player.position.x - this.position.x) +
-            Math.abs(globals.player.position.y - this.position.y) <
+        if (Math.sqrt((Math.abs(entityList.Player[0].position.x) - Math.abs(this.position.x))**2 +
+            (Math.abs(entityList.Player[0].position.y) - Math.abs(this.position.y))**2) <
             this.shootDistance) {
                 if (this.reload > 1) {
                     this.reload = 0;
-                    let angle = Math.atan((this.position.y - globals.player.position.y) / (this.position.x - globals.player.position.x));
-                    if (globals.player.position.x < this.position.x) {
+                    let angle = Math.atan((this.position.y - entityList.Player[0].position.y) / (this.position.x - entityList.Player[0].position.x));
+                    if (entityList.Player[0].position.x < this.position.x) {
                         angle += Math.PI;
                     }
                     let b = new Bullet(angle, this.position.x, this.position.y, this.bulletSpeed, 'Shooter', 'red');

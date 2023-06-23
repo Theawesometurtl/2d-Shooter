@@ -1,6 +1,7 @@
 import { gameEnd } from "../actions/gameEnd";
 import { globals, entityList, ctx, centerX, centerY } from "../../sharedGlobals";
 import { Bullet } from "./Bullet";
+import { shoot } from "../actions/shoot";
 export class Player {
     position: {[key: string]: number};
     velocity: {[key: string]: number};
@@ -32,7 +33,7 @@ export class Player {
         this.maxSpeed = 12;
         this.gunAngle = 0;
         this.bulletSpeed = 12;
-        this.life = 3;
+        this.life = 1;
         this.spinAttackTimer = 50;
         this.spinAttackAngle;
         this.invulnerable = false;
@@ -72,7 +73,7 @@ export class Player {
     }
     update(): boolean {
         if (Math.abs(this.velocity.x) + Math.abs(this.velocity.y) < this.maxSpeed) {
-            if (globals.pressedKeys[87]) {//w
+        if (globals.pressedKeys[87]) {//w
             this.velocity.y += -this.speed;
         }
         if (globals.pressedKeys[65]) {//a
@@ -118,8 +119,7 @@ export class Player {
             this.spinAttackTimer++;
             this.spinAttackAngle += 0.2;
             for (let i = 0; i < 6; i+=0.3) {
-                let b = new Bullet(this.spinAttackAngle + i, this.position.x, this.position.y, this.bulletSpeed, 'Player', 'black');
-                entityList.Bullets.Player.push(b); 
+                shoot(this.spinAttackAngle + i, this.position.x, this.position.y, this.bulletSpeed, 'Player', 'black');
             }
             
         } else {

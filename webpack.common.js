@@ -6,9 +6,11 @@ module.exports = {
     extensions: [".ts", ".tsx", ".js"]
   },
   entry: {
+    networkcss: "./src/styling/networkStuff.css",
     vendor: "./src/vendor.ts",
     gamecss: "./src/styling/game.css",
     index: "./src/index.ts",
+    battle: "./src/battle.ts",
     
   },
   module: {

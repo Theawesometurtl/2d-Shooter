@@ -28,8 +28,8 @@ export function spawnEnemy(type:string) {
 
     }
     if (globals.cameraLock === true) {
-        x += (globals.player.position.x -centerX);
-        y += (globals.player.position.y -centerY);
+        x += (entityList.Player[0].position.x -centerX);
+        y += (entityList.Player[0].position.y -centerY);
     }
     if (type === 'normal') {
         e = new Enemy(x, y);  

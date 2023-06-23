@@ -28,8 +28,8 @@ export class Enemy {
         let x = this.position.x
         let y = this.position.y
         if (globals.cameraLock === true) {
-            x += -globals.player.position.x + centerX;
-            y += -globals.player.position.y + centerY;
+            x += -entityList.Player[0].position.x + centerX;
+            y += -entityList.Player[0].position.y + centerY;
         }
         ctx.arc(x, y, this.radius, 0, 2 * Math.PI, false);
         ctx.fillStyle = this.colour;
@@ -45,8 +45,8 @@ export class Enemy {
     }
 
     move() {
-        let xDistance = globals.player.position.x - this.position.x;
-        let yDistance = globals.player.position.y - this.position.y;
+        let xDistance = entityList.Player[0].position.x - this.position.x;
+        let yDistance = entityList.Player[0].position.y - this.position.y;
         let distance = Math.abs(xDistance) + Math.abs(yDistance);
         this.position.x += (xDistance / distance) * this.speed;
         this.position.y += (yDistance / distance) * this.speed;
@@ -62,10 +62,10 @@ export class Enemy {
             }
         }
         
-        if (Math.abs(this.position.x - globals.player.position.x) +
-        Math.abs(this.position.y - globals.player.position.y) < 
-        globals.player.radius + this.radius) {
-            globals.player.hurt();
+        if (Math.abs(this.position.x - entityList.Player[0].position.x) +
+        Math.abs(this.position.y - entityList.Player[0].position.y) < 
+        entityList.Player[0].radius + this.radius) {
+            entityList.Player[0].hurt();
             for (let i = 0; i < entityList.Enemies.length; i++) {
                 if (entityList.Enemies[i].enemyNumber === this.enemyNumber) {
                     entityList.Enemies.splice(i, 1);
