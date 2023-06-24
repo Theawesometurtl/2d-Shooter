@@ -1,3 +1,4 @@
+import { battle } from "../../game";
 import { globals } from "../../sharedGlobals";
 
 export function setDynamicInterval(func : Function) {
@@ -5,8 +6,6 @@ export function setDynamicInterval(func : Function) {
         func();
         let delay: number = globals.delay;
         window.setTimeout(internalCallback, delay);
-
     }
-
     internalCallback();
 }

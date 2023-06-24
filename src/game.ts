@@ -16,13 +16,6 @@ let spawnrateGrowth = 0.00001
 
 export function updateDraw() {
 
-    for (let i = 0; i < entityList.Player.length; i++) {
-        entityList.Player[i].draw();
-        if (entityList.Player[i].update()) {
-            entityList.Player.splice(i, 1);
-            i--;
-        }
-    }
     for (let i = 0; i < entityList.Enemies.length; i++) {
         entityList.Enemies[i].draw();
         if (entityList.Enemies[i].update()) {
@@ -80,7 +73,6 @@ export function battle() {
     var checkbox = document.getElementById("checkbox")  as HTMLInputElement;
     
 
-
     if (globals.human) {
         updateDraw();
         var checkbox = document.getElementById("checkbox")  as HTMLInputElement;
@@ -90,7 +82,7 @@ export function battle() {
         }
 
     } else {
-        updateDraw();
+        //updateDraw();
         
         let px: number[] = [];
         let py: number[] = [];

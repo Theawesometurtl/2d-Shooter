@@ -8,6 +8,7 @@ import { NN } from "../classes/NN";
 
 
 export function networkStart(): void {
+
     if (globals.human) {
         entityList.Player[0] = new Player(centerX, centerY)
     } else {
@@ -23,5 +24,4 @@ export function networkStart(): void {
         }
         simulationReset();
     }
-    setDynamicInterval(battle);
 }
